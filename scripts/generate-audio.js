@@ -407,6 +407,28 @@ const HOEREN_POOL = [
     },
 ];
 
+// WAV Header Utility
+function getWavHeader(dataLength, sampleRate, numChannels, bitsPerSample) {
+    const header = Buffer.alloc(44);
+    // RIFF chunk descriptor
+    header.write('RIFF', 0);
+    header.writeUInt32LE(36 + dataLength, 4);
+    header.write('WAVE', 8);
+    // fmt sub-chunk
+    header.write('fmt ', 12);
+    header.writeUInt32LE(16, 16); // Subchunk1Size
+    header.writeUInt16LE(1, 20); // AudioFormat (1 = PCM)
+    header.writeUInt16LE(numChannels, 22);
+    header.writeUInt32LE(sampleRate, 24);
+    header.writeUInt32LE(sampleRate * numChannels * (bitsPerSample / 8), 28); // ByteRate
+    header.writeUInt16LE(numChannels * (bitsPerSample / 8), 32); // BlockAlign
+    header.writeUInt16LE(bitsPerSample, 34);
+    // data sub-chunk
+    header.write('data', 36);
+    header.writeUInt32LE(dataLength, 40);
+    return header;
+}
+
 async function generateAudio(item) {
     const outputPath = path.resolve(__dirname, `../public/audio/${item.id}.wav`);
 
@@ -419,7 +441,7 @@ async function generateAudio(item) {
 
     try {
         const response = await client.models.generateContent({
-            model: "gemini-2.5-flash-preview-tts", // Correct TTS model
+            model: "gemini-2.5-flash-preview-tts", // Revert to TTS model
             contents: {
                 role: "user",
                 parts: [{ text: item.audioScript }]
@@ -436,12 +458,17 @@ async function generateAudio(item) {
 
         const part = response.candidates?.[0]?.content?.parts?.[0];
         if (part && part.inlineData) {
-            const buffer = Buffer.from(part.inlineData.data, 'base64');
-            fs.writeFileSync(outputPath, buffer); // saving as .wav (linear pcm assumed by browser as wav often)
+            const pcmBuffer = Buffer.from(part.inlineData.data, 'base64');
+            // Assume 24kHz, 1 Channel, 16-bit PCM (Standard for Gemini Audio Output)
+            const header = getWavHeader(pcmBuffer.length, 24000, 1, 16);
+            const wavBuffer = Buffer.concat([header, pcmBuffer]);
+
+            fs.writeFileSync(outputPath, wavBuffer);
             console.log(`Saved ${item.id}.wav`);
         } else {
             console.error(`No audio data for ${item.id}. Response:`, JSON.stringify(response.candidates?.[0]));
         }
+
 
     } catch (error) {
         if ((error.status === 429 || error.code === 429)) {
