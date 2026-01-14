@@ -1,0 +1,7 @@
+{
+  "name": "Deutsch-Meister A1",
+  "description": "A comprehensive German A1 mock exam application with AI-powered listening, speaking, and grading features, mimicking the official Start Deutsch 1 format.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

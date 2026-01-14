@@ -1,0 +1,645 @@
+{
+  "lesen": [
+    {
+      "part": 1,
+      "type": "true-false",
+      "context": "Liebe Serpil, lieber Cengiz,\nwir heiraten!\nUnd das möchten wir mit unseren Freunden und unseren Familien ganz groß feiern!\nBitte kommt am Freitag, den 5. Mai um 15 Uhr\nin Potsdam auf den Pfingstberg!\nDanach Kaffeetrinken draußen, abends Fest im Restaurant am Pfingstberg.\nÜbernachten könnt ihr bei Freunden von uns!\nBitte meldet Euch bis zum 14. April bei uns!\nBis bald – wir freuen uns!\nSophie & Alex",
+      "prompt": "Die Hochzeit beginnt am Freitagnachmittag.",
+      "options": [
+        "richtig",
+        "falsch"
+      ],
+      "correctAnswer": "richtig",
+      "hint": "See the time in invitation"
+    },
+    {
+      "part": 1,
+      "type": "true-false",
+      "context": "Liebe Serpil, lieber Cengiz,\nwir heiraten!\nUnd das möchten wir mit unseren Freunden und unseren Familien ganz groß feiern!\nBitte kommt am Freitag, den 5. Mai um 15 Uhr\nin Potsdam auf den Pfingstberg!\nDanach Kaffeetrinken draußen, abends Fest im Restaurant am Pfingstberg.\nÜbernachten könnt ihr bei Freunden von uns!\nBitte meldet Euch bis zum 14. April bei uns!\nBis bald – wir freuen uns!\nSophie & Alex",
+      "prompt": "Serpil und Cengiz sollen im Hotel schlafen.",
+      "options": [
+        "richtig",
+        "falsch"
+      ],
+      "correctAnswer": "falsch",
+      "hint": "They are invited to sleep at some friends' place"
+    },
+    {
+      "part": 1,
+      "type": "true-false",
+      "context": "Hallo Maria!\nendlich habe ich unsere Reise organisiert! Also, wir fahren am Freitag,\n18.3. nach Dresden. Da gibt es im Hotel nur noch Doppelzimmer, aber ich\nhoffe, das ist für eine Nacht okay?\nAm Sonntagmorgen fahren wir dann in die Sächsische Schweiz zum Wandern.\nDort ist es wunderschön! Und am Mittwoch fahren wir dann wieder zurück.\nNoch Fragen? Du erreichst mich morgen nicht zu Hause am Telefon. Ich bin\nweg, aber du kannst mir eine E-Mail schicken, dann antworte ich sofort.\nBis bald, liebe Grüße\nAnna",
+      "prompt": "In Dresden übernachten Anna und Maria im Doppelzimmer.",
+      "options": [
+        "richtig",
+        "falsch"
+      ],
+      "correctAnswer": "richtig",
+      "hint": "The letter mentioned they are in the hotel"
+    },
+    {
+      "part": 1,
+      "type": "true-false",
+      "context": "Hallo Maria!\nendlich habe ich unsere Reise organisiert! Also, wir fahren am Freitag,\n18.3. nach Dresden. Da gibt es im Hotel nur noch Doppelzimmer, aber ich\nhoffe, das ist für eine Nacht okay?\nAm Sonntagmorgen fahren wir dann in die Sächsische Schweiz zum Wandern.\nDort ist es wunderschön! Und am Mittwoch fahren wir dann wieder zurück.\nNoch Fragen? Du erreichst mich morgen nicht zu Hause am Telefon. Ich bin\nweg, aber du kannst mir eine E-Mail schicken, dann antworte ich sofort.\nBis bald, liebe Grüße\nAnna",
+      "prompt": "Sie bleiben das ganze Wochenende in Dresden.",
+      "options": [
+        "richtig",
+        "falsch"
+      ],
+      "correctAnswer": "falsch",
+      "hint": "They are going somewhere else on Sunday morning"
+    },
+    {
+      "part": 1,
+      "type": "true-false",
+      "context": "Hallo Maria!\nendlich habe ich unsere Reise organisiert! Also, wir fahren am Freitag,\n18.3. nach Dresden. Da gibt es im Hotel nur noch Doppelzimmer, aber ich\nhoffe, das ist für eine Nacht okay?\nAm Sonntagmorgen fahren wir dann in die Sächsische Schweiz zum Wandern.\nDort ist es wunderschön! Und am Mittwoch fahren wir dann wieder zurück.\nNoch Fragen? Du erreichst mich morgen nicht zu Hause am Telefon. Ich bin\nweg, aber du kannst mir eine E-Mail schicken, dann antworte ich sofort.\nBis bald, liebe Grüße\nAnna",
+      "prompt": "Maria soll Anna schnell anrufen.",
+      "options": [
+        "richtig",
+        "falsch"
+      ],
+      "correctAnswer": "falsch",
+      "hint": "Anna asked to email."
+    },
+    {
+      "part": 2,
+      "type": "multiple-choice",
+      "context": "www.fern-und-gut.de\nReisen in exotische Länder:\nAfrika, Asien, Südamerika\nDirektflüge ab Frankfurt und Berlin\nJetzt buchen und sparen!\nwww.flugpreisvergleich.de\nWir finden den billigsten Flug für Sie!\nAlle Städte in Deutschland,\nzum Beispiel Nürnberg – Hamburg\nschon ab 19 €!",
+      "prompt": "Sie möchten nach Berlin fliegen. Wo bekommen Sie Informationen?",
+      "options": [
+        "www.fern-und-gut.de",
+        "www.flugpreisvergleich.de"
+      ],
+      "correctAnswer": "www.flugpreisvergleich.de",
+      "hint": "It is asking for a flight within Germany"
+    },
+    {
+      "part": 2,
+      "type": "multiple-choice",
+      "context": "www.besserfotografieren.de\nFotokurse für Anfänger und\nFortgeschrittene\noptimales Arbeiten mit der Kamera\nBildbearbeitung am Computer\nkleine Gruppen, faire Preise!\nwww.multimedia.de\nBei uns bekommen Sie die neuesten Modelle\nzu günstigen Preisen!\nMobiltelefone\nI-Pods\nFotokameras\nComputer\nFernseher",
+      "prompt": "Sie möchten im Internet eine Fotokamera bestellen.",
+      "options": [
+        "www.besserfotogafieren.de",
+        "www.multimedia.de"
+      ],
+      "correctAnswer": "www.multimedia.de",
+      "hint": "This website sells products, not courses"
+    },
+    {
+      "part": 2,
+      "type": "multiple-choice",
+      "context": "Wirtshaus am Markt\nregionale Küche\nFremdenzimmer\ndrei große Gasträume\nRaucherzimmer\nZur Kastanie\nBesuchen Sie uns!\nHier können Sie unter Bäumen sitzen\nund leckeres Essen und kühle Getränke\ngenießen!",
+      "prompt": "Sie möchten am Samstag essen gehen und draußen sitzen. Wo können Sie das?",
+      "options": [
+        "Wirtshaus am Markt",
+        "Zur Kastanie"
+      ],
+      "correctAnswer": "Zur Kastanie",
+      "hint": "The restaurant mentions 'under the trees'"
+    },
+    {
+      "part": 2,
+      "type": "multiple-choice",
+      "context": "www.computerprofis-bremen.de\ndie Computerprofis –\nimmer für Sie da\n24-h-Notdienst\nschnelle Hilfe bei Problemen!\nNotrufnummer: 04 21-22 33 44\nwww.computerfuerSie.de\nDer Computerhändler\nDie beste Computerlösung für Sie!\nComputer\nSoftware\nHardware\nInstallation\nFirmenservice",
+      "prompt": "Sie haben ein Problem mit dem Computer. Wo bekommen Sie Hilfe?",
+      "options": [
+        "www.computerprofis-bremen.de",
+        "www.computerfuerSie.de"
+      ],
+      "correctAnswer": "www.computerprofis-bremen.de",
+      "hint": "One website is for professionals and the other is for selling"
+    },
+    {
+      "part": 2,
+      "type": "multiple-choice",
+      "context": "www.henriettenpark.de\nPlan\nCafés\nTiere und Pflanzen\nSpielplätze\nProgramm\nwww.pension-im-wald.de\nPension im Wald\nIhre sympathische Pension im Grünen!\nWir bieten Ihnen:\n5 Einzelzimmer\n5 Doppelzimmer\nRestaurant mit Spielecke\nParkplatz",
+      "prompt": "Sie suchen einen Spielplatz im Park. Wo finden Sie Informationen?",
+      "options": [
+        "www.henriettenpark.de",
+        "www.pension-im-wald.de"
+      ],
+      "correctAnswer": "www.henriettenpark.de",
+      "hint": "One website is a park and the other is for lodging"
+    },
+    {
+      "part": 2,
+      "type": "multiple-choice",
+      "context": "www.buchhaendler.de\nRomane\nSachbücher\nReiseführer\nKochbücher\nSchulbücher\nwww.bildungszentrum-nord.de\nSprachkurse\nBerufliche Bildung\nGesundheit\nKreatives Gestalten\nKochkurse",
+      "prompt": "Sie möchten mit anderen Leuten zusammen kochen lernen. Wo bekommen Sie Informationen?",
+      "options": [
+        "www.buchhaendler.de",
+        "www.bildungszentrum-nord.de"
+      ],
+      "correctAnswer": "www.bildungszentrum-nord.de",
+      "hint": "One site is a bookstore and the other is a community center"
+    },
+    {
+      "part": 3,
+      "type": "true-false",
+      "context": "Praxis Dr. Haug\nLiebe Patientinnen und Patienten!\nWir haben diese Woche Urlaub! Im Notfall kontaktieren\nSie bitte den ärztlichen Notdienst unter 31 00 31.",
+      "prompt": "Sie können am Freitag zu diesem Arzt gehen.",
+      "options": [
+        "richtig",
+        "falsch"
+      ],
+      "correctAnswer": "falsch",
+      "hint": "The office is closed all week"
+    },
+    {
+      "part": 3,
+      "type": "true-false",
+      "context": "Achtung!\nIn der Nacht vom 31. 12. zum 1. 1. fährt die\nLinie 5 alle 15 Minuten.",
+      "prompt": "Der Bus fährt in der Neujahrsnacht nicht.",
+      "options": [
+        "richtig",
+        "falsch"
+      ],
+      "correctAnswer": "falsch",
+      "hint": "The bus drives even on New Year's"
+    },
+    {
+      "part": 3,
+      "type": "true-false",
+      "context": "Kassenzeiten:\nMo, Di, Mi, Fr 8–12 und 14–16 Uhr\nDo 8-12 und 14-18 Uhr",
+      "prompt": "Es ist Mittwoch, 17 Uhr. Die Bank ist geöffnet.",
+      "options": [
+        "richtig",
+        "falsch"
+      ],
+      "correctAnswer": "falsch",
+      "hint": "The banks closes before that time"
+    },
+    {
+      "part": 3,
+      "type": "true-false",
+      "context": "Rauchfreier Flughafen!\nBitte gehen Sie zum Rauchen in die\nmarkierten Raucherzonen.",
+      "prompt": "Sie können an manchen Orten rauchen.",
+      "options": [
+        "richtig",
+        "falsch"
+      ],
+      "correctAnswer": "richtig",
+      "hint": "There are dedicated areas for smoking."
+    },
+    {
+      "part": 3,
+      "type": "true-false",
+      "context": "Am Samstag, 14. Juli\nGroßes Sommerfest!\nZusammen essen, trinken, Spaß haben!\nKulturprogramm von Kursteilnehmerinnen!\nAb 21 Uhr Disco!",
+      "prompt": "Auf dem Fest kann man tanzen.",
+      "options": [
+        "richtig",
+        "falsch"
+      ],
+      "correctAnswer": "richtig",
+      "hint": "Disco is one of the activities"
+    },
+    {
+      "part": 3,
+      "type": "true-false",
+      "context": "Obst, Gemüse, Feinkost aus Spanien\nWir sind umgezogen!\nSie finden uns ab sofort in der Friedrichstraße 13!\nIhre Familie Ruiz-Marquez",
+      "prompt": "Obst bekommen Sie jetzt in der Friedrichstraße 13.",
+      "options": [
+        "richtig",
+        "falsch"
+      ],
+      "correctAnswer": "richtig",
+      "hint": "The sign clearly mentions the new address"
+    }
+  ],
+  "schreibenForm": [
+    {
+      "description": "Ihre Freundin, Eva Kadavy, macht mit ihrem Mann und ihren beiden Söhnen (8 und 11 Jahre alt) Urlaub in Seeheim. Im Reisebüro bucht sie für den nächsten Sonntag eine Busfahrt um den Bodensee. Frau Kadavy hat keine Kreditkarte.",
+      "fields": [
+        {
+          "label": "Anzahl der Personen:",
+          "hint": "Think about how many people are travelling"
+        },
+        {
+          "label": "Davon Kinder:",
+          "hint": "They have 2 sons, don't forget"
+        },
+        {
+          "label": "PLZ, Urlaubsort:",
+          "hint": "The city they are in is mentioned"
+        },
+        {
+          "label": "Zahlungsweise:",
+          "hint": "She doesn't have a credit card, so she pays with..."
+        },
+        {
+          "label": "Reisetermin:",
+          "hint": "She wants to take the bus on the coming Sunday"
+        }
+      ]
+    },
+    {
+      "description": "Ihr Freund, Vladimir Serjakov, 30 Jahre alt, kommt aus Sankt Petersburg in Russland und lebt seit einem Monat in Hamburg. Er hat eine neue Stelle bei TUI als Reiseleiter. Seit gestern hat er 39 Grad Fieber. Heute geht er zum Arzt.",
+      "fields": [
+        {
+          "label": "Postleitzahl, Wohnort:",
+          "hint": "Hamburg"
+        },
+        {
+          "label": "Alter:",
+          "hint": "He is 30 years old"
+        },
+        {
+          "label": "Beruf:",
+          "hint": "He now works as guide."
+        },
+        {
+          "label": "Seit wann sind Sie krank?",
+          "hint": "He got ill the day before"
+        },
+        {
+          "label": "Was fehlt Ihnen?",
+          "hint": "He has..."
+        }
+      ]
+    }
+  ],
+  "schreibenLetter": [
+    {
+      "prompt": "Sie möchten im August Dresden besuchen. Schreiben Sie an die Touristeninformation:\nWarum schreiben Sie?\nBitten Sie: Informationen über Filme, Museen usw. (Kulturprogramm).\nFragen Sie: Hoteladressen?",
+      "hint": "Remember to start with an address and greeting! Mention that you want to travel there and then mention the points to cover!",
+      "exampleEmail": "Sehr geehrte Damen und Herren,\nich plane einen Urlaub in Dresden im August und möchte mich vorab informieren. Bitte senden Sie mir Informationen über das Kulturprogramm (Filme, Museen, etc.).\nHaben Sie auch Hoteladressen für mich?\n\nMit freundlichen Grüßen,\n[Your Name]"
+    },
+    {
+      "prompt": "Ihr neuer Kollege, Herr Jensch, lädt Sie am Dienstag um 15 Uhr zu seiner Geburtstagsfeier im Büro ein. Schreiben Sie Herrn Jensch eine E-Mail:\nWarum schreiben Sie?\nSagen Sie: später kommen.\nFragen Sie: helfen?",
+      "hint": "Start with an address and greeting! Remember to thank him for the invitation first. And then mention the given points!",
+      "exampleEmail": "Lieber Herr Jensch,\nvielen Dank für die Einladung zu Ihrer Geburtstagsfeier! Ich kann leider erst später kommen, da ich einen anderen Termin habe.\nKann ich Ihnen bei etwas helfen?\n\nViele Grüße,\n[Your Name]"
+    }
+  ],
+  "sprechenWords": [
+    {
+      "topic": "Essen & Trinken",
+      "content": "Frühstück",
+      "exampleQuestion": "Was essen Sie gern zum Frühstück?",
+      "exampleAnswer": "Ich esse gern Brot und Käse zum Frühstück."
+    },
+    {
+      "topic": "Essen & Trinken",
+      "content": "Lieblingsessen",
+      "exampleQuestion": "Was ist dein Lieblingsessen?",
+      "exampleAnswer": "Mein Lieblingsessen ist Pizza."
+    },
+    {
+      "topic": "Essen & Trinken",
+      "content": "Sonntag",
+      "exampleQuestion": "Was essen Sie am Sonntag?",
+      "exampleAnswer": "Am Sonntag essen wir oft Fleisch."
+    },
+    {
+      "topic": "Essen & Trinken",
+      "content": "Bier",
+      "exampleQuestion": "Trinken Sie gern Bier?",
+      "exampleAnswer": "Ja, ich trinke gern Bier am Abend."
+    },
+    {
+      "topic": "Essen & Trinken",
+      "content": "Fleisch",
+      "exampleQuestion": "Essen Sie Fleisch?",
+      "exampleAnswer": "Ja, ich esse Fleisch, aber nicht so oft."
+    },
+    {
+      "topic": "Essen & Trinken",
+      "content": "Brot",
+      "exampleQuestion": "Essen Sie gern Brot?",
+      "exampleAnswer": "Ja, ich esse sehr gern Brot."
+    },
+    {
+      "topic": "Beruf",
+      "content": "Arbeitszeit",
+      "exampleQuestion": "Wie ist Ihre Arbeitszeit?",
+      "exampleAnswer": "Meine Arbeitszeit ist von 8 bis 17 Uhr."
+    },
+    {
+      "topic": "Beruf",
+      "content": "Kollegen",
+      "exampleQuestion": "Haben Sie nette Kollegen?",
+      "exampleAnswer": "Ja, meine Kollegen sind sehr nett."
+    },
+    {
+      "topic": "Beruf",
+      "content": "Spaß",
+      "exampleQuestion": "Haben Sie Spaß bei der Arbeit?",
+      "exampleAnswer": "Ja, meine Arbeit macht mir Spaß."
+    },
+    {
+      "topic": "Beruf",
+      "content": "Arbeitskleidung",
+      "exampleQuestion": "Haben Sie spezielle Arbeitskleidung?",
+      "exampleAnswer": "Ja, ich trage einen weißen Kittel."
+    },
+    {
+      "topic": "Beruf",
+      "content": "Arbeitsplatz",
+      "exampleQuestion": "Wie finden Sie Ihren Arbeitsplatz?",
+      "exampleAnswer": "Mein Arbeitsplatz ist sehr modern."
+    },
+    {
+      "topic": "Beruf",
+      "content": "Aufgaben",
+      "exampleQuestion": "Welche Aufgaben haben Sie?",
+      "exampleAnswer": "Ich schreibe E-Mails und telefoniere."
+    },
+    {
+      "topic": "Sport",
+      "content": "Lieblingssport",
+      "exampleQuestion": "Was ist dein Lieblingssport?",
+      "exampleAnswer": "Mein Lieblingssport ist Fußball."
+    },
+    {
+      "topic": "Sport",
+      "content": "schwimmen",
+      "exampleQuestion": "Gehst du oft schwimmen?",
+      "exampleAnswer": "Ja, ich gehe jeden Samstag schwimmen."
+    },
+    {
+      "topic": "Sport",
+      "content": "Wochenende",
+      "exampleQuestion": "Machst du am Wochenende Sport?",
+      "exampleAnswer": "Ja, am Wochenende gehe ich wandern."
+    },
+    {
+      "topic": "Sport",
+      "content": "Abend",
+      "exampleQuestion": "Machst du am Abend Sport?",
+      "exampleAnswer": "Nein, am Abend lese ich Bücher."
+    },
+    {
+      "topic": "Sport",
+      "content": "Ball",
+      "exampleQuestion": "Spielst du gern Ball?",
+      "exampleAnswer": "Ja, ich spiele gern Fußball."
+    },
+    {
+      "topic": "Sport",
+      "content": "Fahrrad",
+      "exampleQuestion": "Fährst du oft Fahrrad?",
+      "exampleAnswer": "Ja, ich fahre jeden Tag mit dem Fahrrad zur Arbeit."
+    }
+  ],
+  "sprechenPictures": [
+    {
+      "content": "A picture of CD/DVD",
+      "exampleQuestion": "Kannst du mir die CD geben, bitte?",
+      "exampleAnswer": "Ja, hier, bitte schön."
+    },
+    {
+      "content": "A picture of a notebook.",
+      "exampleQuestion": "Kannst du mir dein Heft geben, bitte?",
+      "exampleAnswer": "Tut mir leid, ich brauche es selbst."
+    },
+    {
+      "content": "A picture of jacket.",
+      "exampleQuestion": "Kannst du mir deine Jacke geben, bitte?",
+      "exampleAnswer": "Ja, sicher. Hier, bitte."
+    },
+    {
+      "content": "A picture of a pen.",
+      "exampleQuestion": "Kannst du mir den Stift geben, bitte?",
+      "exampleAnswer": "Ja, gern. Hier bitte."
+    },
+    {
+      "content": "A picture of a chair.",
+      "exampleQuestion": "Kannst du mir deinen Stuhl geben, bitte?",
+      "exampleAnswer": "Tut mir leid, der ist besetzt."
+    },
+    {
+      "content": "A picture of a watch.",
+      "exampleQuestion": "Kannst du mir deine Uhr geben, bitte?",
+      "exampleAnswer": "Nein, die brauche ich."
+    },
+    {
+      "content": "A picture of an apple",
+      "exampleQuestion": "Kannst du mir den Apfel geben, bitte?",
+      "exampleAnswer": "Ja, gern. Hier, bitte."
+    },
+    {
+      "content": "A picture of fork and knife.",
+      "exampleQuestion": "Kannst du mir das Messer geben, bitte?",
+      "exampleAnswer": "Tut mir leid, ich brauche es selbst."
+    },
+    {
+      "content": "A picture of a glass.",
+      "exampleQuestion": "Kannst du mir das Glas geben, bitte?",
+      "exampleAnswer": "Tut mir leid, der ist besetzt."
+    },
+    {
+      "content": "A picture of sign prohibiting to smoke.",
+      "exampleQuestion": "Kannst du nicht hier rauchen, bitte?",
+      "exampleAnswer": "Entschuldigung, ich habe das nicht bemerkt."
+    },
+    {
+      "content": "A picture of a suitcase.",
+      "exampleQuestion": "Kannst du mir deinen Koffer helfen?",
+      "exampleAnswer": "Ja, gern. Hier bitte."
+    },
+    {
+      "content": "A picture of a radio.",
+      "exampleQuestion": "Kannst du mir die Radio geben, bitte?",
+      "exampleAnswer": "Nein, die brauche ich."
+    }
+  ],
+  "hoeren": [
+    {
+      "part": 1,
+      "type": "multiple-choice",
+      "audioScript": "Frau: Ach, Verzeihung, wo finde ich Herrn\nSchneider vom Betriebsrat?\nMann: Schneider. Warten Sie mal. Ich\nglaube, der ist in Zimmer Nummer 254.\nJa, stimmt, Zimmer 254. Das ist im zweiten\nStock. Da können Sie den Aufzug hier\nnehmen.\nFrau: Zweiter Stock, Zimmer 254.\nOkay, vielen Dank.",
+      "prompt": "Welche Zimmernummer hat Herr Schneider?",
+      "options": [
+        "2",
+        "245",
+        "254"
+      ],
+      "correctAnswer": "254"
+    },
+    {
+      "part": 1,
+      "type": "multiple-choice",
+      "audioScript": "Kunde: Entschuldigung, was kostet dieser\nPullover jetzt? Da steht 30 Prozent billiger.\nVerkäuferin: Einen Moment bitte ...\nneunzehnfünfundneunzig.\nKunde: 19,95 Euro?\nVerkäuferin: Ja, Euro natürlich.\nKunde: Hm, ... ok, den nehme ich.",
+      "prompt": "Was kostet der Pullover?",
+      "options": [
+        "30,- €",
+        "95,- €",
+        "19,95€"
+      ],
+      "correctAnswer": "19,95€"
+    },
+    {
+      "part": 1,
+      "type": "multiple-choice",
+      "audioScript": "Passant: Ach, entschuldigen Sie bitte.\nPassantin: Ja bitte.\nPassant: Haben Sie eine Uhr?\nWie spät ist es bitte?\nPassantin: Ja – jetzt ist es gleich 5 Uhr.\nPassant: Was, schon 5. Vielen Dank,\nWiedersehen.",
+      "prompt": "Wie spät ist es?",
+      "options": [
+        "15 Uhr",
+        "Gleich 5 Uhr",
+        "Halb 5 Uhr"
+      ],
+      "correctAnswer": "Gleich 5 Uhr"
+    },
+    {
+      "part": 1,
+      "type": "multiple-choice",
+      "audioScript": "Kellner: Was wünschen Sie bitte?\nGast: Ich hätte gern die Salatplatte und\nein\nKellner: Entschuldigung, die Salatplatte ist\nleider aus, aber die Bratwurst kann ich\nIhnen empfehlen ... ganz frisch heute.\nGast: Nein danke ... ich esse kein Fleisch.\nGibt es etwas ohne Fleisch?\nKellner: Ja ... nicht mehr viel: Fisch oder\nPommes.\nGast: Fisch ... hm ... Tja, dann wohl die\nPommes.",
+      "prompt": "Was isst die Frau im Restaurant?",
+      "options": [
+        "Pommes",
+        "Fisch",
+        "Wurst"
+      ],
+      "correctAnswer": "Pommes"
+    },
+    {
+      "part": 1,
+      "type": "multiple-choice",
+      "audioScript": "Kollege: Haben Sie Kinder, Frau Heger?\nKollegin: Ja, einen Sohn.\nKollege: Und wie alt ist er?\nKollegin: Neun Jahre seit gestern.\nKollege: Ah, dann geht er ja schon zur\nSchule?\nKollegin: Ja klar, schon in die dritte Klasse.",
+      "prompt": "In welche Klasse geht Frau Hegers Sohn?",
+      "options": [
+        "9.Klasse",
+        "3.Klasse",
+        "4.Klasse"
+      ],
+      "correctAnswer": "3.Klasse"
+    },
+    {
+      "part": 1,
+      "type": "multiple-choice",
+      "audioScript": "Kundin: Ach, entschuldigen Sie, wie\nkomme ich denn hier in den zweiten\nStock?\nDie Rolltreppe da vorn ist kaputt.\nVerkäufer: Da gehen Sie hier rechts um die\nEcke und nehmen den Aufzug.\nKundin: Um die Ecke rechts. Danke.",
+      "prompt": "Wie kommt die Frau in den 2. Stock?",
+      "options": [
+        "Mit dem Aufzug.",
+        "Auf der Treppe um die Ecke.",
+        "Mit der Rolltreppe."
+      ],
+      "correctAnswer": "Mit dem Aufzug."
+    },
+    {
+      "part": 1,
+      "type": "multiple-choice",
+      "audioScript": "Kollegin: Guten Morgen, Herr Albers.\nSo früh schon bei der Arbeit?\nKollege: Ja, ich habe noch viel zu tun.\nMorgen fahre ich doch für 3 Wochen weg.\nKollegin: Ach ja, das habʻ ich vergessen.\nWohin fahren Sie denn?\nKollege: Zu meinen Verwandten nach\nPolen.",
+      "prompt": "Wohin fährt Herr Albers?",
+      "options": [
+        "In Urlaub ans Meer.",
+        "Zur Arbeit.",
+        "Zur Familie."
+      ],
+      "correctAnswer": "Zur Familie."
+    },
+    {
+      "part": 2,
+      "type": "true-false",
+      "audioScript": "Frau Katrin Gundlach, angekommen aus\nBudapest, wird zum Informationsschalter\nin der Ankunftshalle C gebeten.\nFrau Gundlach bitte zum Informations-\nschalter in der Ankunftshalle C.",
+      "prompt": "Die Reisende soll zur Information in Halle C kommen.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "correctAnswer": "Richtig"
+    },
+    {
+      "part": 2,
+      "type": "true-false",
+      "audioScript": "Liebe Kunden, zu Weihnachten bieten wir\nIhnen Superpreise an z. B. erstklassiger\nitalienischer Weißwein für 12 Euro 78 die\nFlasche oder exklusiver argentinischer\nRotwein für 9 Euro 68. Besuchen Sie uns\nim 3. Stock. Frohe Weihnachten.",
+      "prompt": "Die Kunden sollen die Weihnachtsfeier besuchen.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "correctAnswer": "Falsch"
+    },
+    {
+      "part": 2,
+      "type": "true-false",
+      "audioScript": "Liebe Fahrgäste. Wir sind kurz vor\nWürzburg. Sicherlich haben Sie schon\nHunger. An der nächsten Raststätte halten\nwir für eine Stunde. Wir treffen uns wieder\num halb eins am Bus, aber bitte pünktlich\nsein.",
+      "prompt": "Die Fahrgäste sollen sich im Restaurant treffen.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "correctAnswer": "Richtig"
+    },
+    {
+      "part": 2,
+      "type": "true-false",
+      "audioScript": "Liebe Fahrgäste! Bitte beachten Sie. Das ist\nein außerplanmäßiger Halt. Bitte hier nicht\naussteigen. In ein paar Minuten erreichen\nwir den Bahnhof Bonn – Bad Godesberg.",
+      "prompt": "Die Fahrgäste sollen im Zug bleiben.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "correctAnswer": "Richtig"
+    },
+    {
+      "part": 2,
+      "type": "true-false",
+      "audioScript": "Herr Stefan Janda gebucht auf dem Flug\nLH 737 nach Warschau, wird zum Schalter\nF7 gebeten. Der Flug wird in ein paar\nMinuten geschlossen. Herr Janda gebucht\nnach Warschau bitte nach F7.",
+      "prompt": "Der Herr soll sofort zum Schalter kommen.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "correctAnswer": "Richtig"
+    },
+    {
+      "part": 3,
+      "type": "multiple-choice",
+      "audioScript": "Telefonansagedienst der deutschen Tele-\nkom. Die Rufnummer des Teilnehmers hat\nsich geändert. Bitte rufen Sie die Telefon-\nAuskunft an unter 11 8 33.",
+      "prompt": "Die Nummer ist:",
+      "options": [
+        "11833.",
+        "11883.",
+        "12833."
+      ],
+      "correctAnswer": "11833."
+    },
+    {
+      "part": 3,
+      "type": "multiple-choice",
+      "audioScript": "Hallo Jan, hier ist Boris. Du, ich bin noch\nim Zug. Du holst mich doch vom Bahnhof\nab? Ich warte an der Information auf dich.",
+      "prompt": "Wo genau treffen sich die Männer?",
+      "options": [
+        "Am Zug.",
+        "Am Bahnhof.",
+        "An der Information."
+      ],
+      "correctAnswer": "An der Information."
+    },
+    {
+      "part": 3,
+      "type": "multiple-choice",
+      "audioScript": "Mensch Jan, du Penner, hier noch mal\nBoris. Ich bin jetzt am Bahnhof. Und du?\nWo bist du denn? Ich warte schon über 20\nMinuten auf dich. Zehn Minuten Zeit hast\ndu noch ... bis 2, dann nehme ich ein Taxi.",
+      "prompt": "Wie lange will der Mann noch warten?",
+      "options": [
+        "20 Minuten.",
+        "2 Minuten.",
+        "10 Minuten."
+      ],
+      "correctAnswer": "10 Minuten."
+    },
+    {
+      "part": 3,
+      "type": "multiple-choice",
+      "audioScript": "Guten Tag, hier Rogalla. Wir können am\nSamstag leider nicht zu Ihnen kommen.\nAm Sonntag haben wir aber Zeit. Rufen Sie\nuns doch bitte zurück, ob Ihnen das passt.\nDanke.",
+      "prompt": "An welchem Tag will die Frau kommen?",
+      "options": [
+        "Am Montag.",
+        "Am Sonntag.",
+        "Am Samstag."
+      ],
+      "correctAnswer": "Am Sonntag."
+    },
+    {
+      "part": 3,
+      "type": "multiple-choice",
+      "audioScript": "Hallo Alex. Walter hier. Kannst du schnell\nmal rüberkommen? Mein Computer hat\neinen Fehler. Ich kann nichts drucken.\nMelde dich doch bitte gleich, wenn du\nnach Hause kommst.",
+      "prompt": "Was ist kaputt?",
+      "options": [
+        "Der Fernseher.",
+        "Der Computer.",
+        "Das Handy."
+      ],
+      "correctAnswer": "Der Computer."
+    }
+  ]
+}
