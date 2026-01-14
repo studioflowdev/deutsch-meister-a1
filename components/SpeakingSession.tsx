@@ -23,6 +23,11 @@ interface PartDef {
   id: number;
   instruction: string;
   guidance: string;
+  card?: {
+    title: string;
+    points: string[];
+  };
+  topic?: string;
 }
 
 const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComplete, guidanceEnabled }) => {
@@ -41,26 +46,41 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
   const currentTurnChunksRef = useRef<AudioBuffer[]>([]);
   const playbackSourceRef = useRef<AudioBufferSourceNode | null>(null);
 
+  // Determine a specific topic for Part 2 based on available word cards
+  const activeTopic = useMemo(() => {
+    const wordCards = cards.filter(c => c.type === 'word');
+    if (wordCards.length === 0) return 'Allgemein';
+    const topics = Array.from(new Set(wordCards.map(c => c.topic).filter(Boolean)));
+    return topics[Math.floor(Math.random() * topics.length)] || 'Allgemein';
+  }, [cards]);
+
   const shuffledParts = useMemo(() => {
-    const definitions: PartDef[] = [
+    // Standard Part 1 Card Content
+    const part1Card = {
+      title: "Sich vorstellen",
+      points: ["Name", "Alter", "Land", "Wohnort", "Sprachen", "Beruf", "Hobby"]
+    };
+
+    return [
       {
         id: 1,
-        instruction: "Teil 1: Sich vorstellen (Name, Alter, Herkunft, Wohnort, Sprachen, Beruf, Hobby). Frage nach der Buchstabierung des Namens oder nach einer Telefonnummer.",
-        guidance: "Introduce yourself briefly: Name, age, country, where you live, languages, profession, and hobby."
+        instruction: "Teil 1: Sich vorstellen. \nBitte stellen Sie sich vor. Sagen Sie etwas zu jedem Punkt.",
+        guidance: "Introduce yourself. Say something about each point: Name, Age, Country, Residence, Languages, Job, Hobby.",
+        card: part1Card
       },
       {
         id: 2,
-        instruction: `Teil 2: Thema "${cards[0]?.topic || 'Allgemein'}". Karte "${cards[0]?.content || '...'}". Der Prüfling muss eine Frage stellen. Antworte kurz.`,
-        guidance: `Ask a question related to the topic "${cards[0]?.topic || 'General'}" using the word "${cards[0]?.content || '...'}".`
+        instruction: `Teil 2: Um Informationen bitten und Informationen geben.\nThema: "${activeTopic}".\nZiehen Sie eine Karte und fragen Sie.`,
+        guidance: `Part 2: Requesting information. Ask a question about the topic "${activeTopic}" using the word on the card.`,
+        topic: activeTopic
       },
       {
         id: 3,
-        instruction: `Teil 3: Karte "${cards[cards.length - 1]?.content || '...'}". Der Prüfling muss eine Bitte formulieren. Reagiere darauf.`,
-        guidance: `Formulate a polite request based on the image: "${cards[cards.length - 1]?.content || '...'}".`
+        instruction: `Teil 3: Bitten formulieren und darauf reagieren.\nZiehen Sie eine Bildkarte und formulieren Sie eine Bitte.`,
+        guidance: `Part 3: Formulating requests. Look at the image and ask someone to do something (a request).`,
       }
     ];
-    return shuffleArray(definitions);
-  }, [cards]);
+  }, [cards, activeTopic]);
 
   const currentPart = shuffledParts[stepIndex];
 
@@ -187,10 +207,10 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
 
   const relevantCards = useMemo(() => {
     if (currentPart.id === 1) return [];
-    if (currentPart.id === 2) return cards.filter(c => c.type === 'word');
+    if (currentPart.id === 2) return cards.filter(c => c.type === 'word' && c.topic === activeTopic);
     if (currentPart.id === 3) return cards.filter(c => c.type === 'picture');
     return [];
-  }, [currentPart.id, cards]);
+  }, [currentPart.id, cards, activeTopic]);
 
   return (
     <div className="bg-slate-900 rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col h-[750px] border-8 border-slate-800">
@@ -259,53 +279,71 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
                 </div>
               </div>
 
-              {relevantCards.length > 0 ? (
-                <div className="flex overflow-x-auto gap-6 pb-4 snap-x custom-scrollbar">
-                  {relevantCards.map(card => (
-                    <div key={card.id} className="snap-center shrink-0 w-52 bg-white border-[2px] border-slate-300 shadow-[4px_4px_12px_rgba(0,0,0,0.1)] relative group flex flex-col">
-                      {/* Authentic Card Header matching physical copies */}
-                      <div className="flex flex-col px-2 py-1 bg-white border-b border-slate-200">
-                        <div className="flex justify-between items-center w-full">
-                          <span className="text-[7px] font-bold text-slate-700 uppercase tracking-tight">Start Deutsch 1</span>
-                          <span className="text-[7px] font-bold text-slate-700 uppercase tracking-tight">Sprechen Teil {currentPart.id}</span>
-                        </div>
-                        <span className="text-[6px] text-slate-400 uppercase tracking-tighter">Kandidatenblätter</span>
+              {relevantCards.length > 0 || currentPart.id === 1 ? (
+                <div className="flex overflow-x-auto gap-6 pb-4 snap-x custom-scrollbar justify-center">
+                  {currentPart.id === 1 && currentPart.card ? (
+                    <div className="snap-center shrink-0 w-64 bg-white border-[2px] border-slate-300 shadow-[4px_4px_12px_rgba(0,0,0,0.1)] relative group flex flex-col p-6">
+                      <div className="text-center border-b border-slate-200 pb-2 mb-4">
+                        <h4 className="font-bold text-lg text-slate-800 uppercase tracking-tight">{currentPart.card.title}</h4>
                       </div>
-
-                      {/* Main Illustration Area */}
-                      <div className="flex-1 aspect-square w-full p-4 flex flex-col items-center justify-center relative overflow-hidden bg-white">
-                        {card.imageUrl ? (
-                          <img
-                            src={card.imageUrl}
-                            alt={card.content}
-                            className="w-full h-full object-contain mix-blend-multiply grayscale contrast-125 brightness-95"
-                          />
-                        ) : (
-                          <div className="flex flex-col items-center justify-center space-y-2 text-slate-200">
-                            <i className={`fa-solid ${card.icon || 'fa-image'} text-4xl opacity-30`}></i>
-                          </div>
-                        )}
-
-                        {/* Guidance overlay: Show translation when pomocoggled */}
-                        {(guidanceEnabled || isActive === false) && (
-                          <div className={`absolute inset-0 bg-white/95 flex flex-col items-center justify-center p-4 text-center transition-opacity duration-300 ${guidanceEnabled ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
-                            <span className="text-[9px] font-black text-blue-600 uppercase tracking-widest mb-1">{card.type === 'word' ? `Thema: ${card.topic}` : 'Bitte formulieren'}</span>
-                            <span className="text-lg font-black text-slate-900 leading-tight mb-3">{card.content}</span>
-                            {guidanceEnabled && (
-                              <div className="mt-2 pt-2 border-t border-slate-100 w-full">
-                                <p className="text-[9px] text-slate-500 italic font-medium">Hint: "{card.exampleQuestion}"</p>
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Bottom Footer - Simple like the physical ones */}
-                      <div className="bg-white px-2 py-1 border-t border-slate-100 flex justify-center">
-                        <span className="text-[7px] font-bold text-slate-300 uppercase">Goethe-Institut</span>
+                      <ul className="space-y-3 flex-1">
+                        {currentPart.card.points.map((point: string, idx: number) => (
+                          <li key={idx} className="flex items-center gap-3 text-slate-700 font-medium">
+                            <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                            {point}
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="mt-4 pt-2 border-t border-slate-100 text-center">
+                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Goethe-Zertifikat A1</span>
                       </div>
                     </div>
-                  ))}
+                  ) : (
+                    relevantCards.map(card => (
+                      <div key={card.id} className="snap-center shrink-0 w-52 bg-white border-[2px] border-slate-300 shadow-[4px_4px_12px_rgba(0,0,0,0.1)] relative group flex flex-col">
+                        {/* Authentic Card Header matching physical copies */}
+                        <div className="flex flex-col px-2 py-1 bg-white border-b border-slate-200">
+                          <div className="flex justify-between items-center w-full">
+                            <span className="text-[7px] font-bold text-slate-700 uppercase tracking-tight">Start Deutsch 1</span>
+                            <span className="text-[7px] font-bold text-slate-700 uppercase tracking-tight">Sprechen Teil {currentPart.id}</span>
+                          </div>
+                          <span className="text-[6px] text-slate-400 uppercase tracking-tighter">Kandidatenblätter</span>
+                        </div>
+
+                        {/* Main Illustration Area */}
+                        <div className="flex-1 aspect-square w-full p-4 flex flex-col items-center justify-center relative overflow-hidden bg-white">
+                          {card.imageUrl ? (
+                            <img
+                              src={card.imageUrl}
+                              alt={card.content}
+                              className="w-full h-full object-contain mix-blend-multiply grayscale contrast-125 brightness-95"
+                            />
+                          ) : (
+                            <div className="flex flex-col items-center justify-center space-y-2 text-slate-200">
+                              <i className={`fa-solid ${card.icon || 'fa-image'} text-4xl opacity-30`}></i>
+                            </div>
+                          )}
+
+                          {/* Guidance overlay: Show translation when toggled */}
+                          {(guidanceEnabled || isActive === false) && (
+                            <div className={`absolute inset-0 bg-white/95 flex flex-col items-center justify-center p-4 text-center transition-opacity duration-300 ${guidanceEnabled ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
+                              <span className="text-[9px] font-black text-blue-600 uppercase tracking-widest mb-1">{card.type === 'word' ? `Thema: ${card.topic}` : 'Bitte formulieren'}</span>
+                              <span className="text-lg font-black text-slate-900 leading-tight mb-3">{card.content}</span>
+                              {guidanceEnabled && (
+                                <div className="mt-2 pt-2 border-t border-slate-100 w-full">
+                                  <p className="text-[9px] text-slate-500 italic font-medium">Hint: "{card.exampleQuestion}"</p>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Bottom Footer - Simple like the physical ones */}
+                        <div className="bg-white px-2 py-1 border-t border-slate-100 flex justify-center">
+                          <span className="text-[7px] font-bold text-slate-300 uppercase">Goethe-Institut</span>
+                        </div>
+                      </div>
+                    )))}
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center py-10 bg-white/5 rounded-2xl border border-dashed border-white/20">

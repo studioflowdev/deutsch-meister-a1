@@ -677,7 +677,139 @@ export const LESEN_POOL: Question[] = [
     correctAnswer: 'Richtig',
     hint: 'It drives every 15 minutes.',
     translation: 'The bus runs on New Year\'s Eve.'
-  }
+  },
+
+  // --- NEW IMPORTED CONTENT ---
+  {
+    id: 'l_new_mdcjsl51e',
+    part: 1,
+    type: 'true-false',
+    context: "Hallo LI,\n\ndanke für deine Mail. Dein Zug kommt hier in Hannover um 12.36 Uhr an. Ich bin ab 12.15 Uhr im Hauptbahnhof und warte auf dich vor der Auskunft.\n\nDu kannst mich den ganzen Vormittag auf meinem Handy (+49 173 02 205 59) erreichen.\n\nDeine\n\nKarin",
+    prompt: "Lis Zug kommt nach halb eins an.",
+    options: ["Richtig", "Falsch"],
+    correctAnswer: "Richtig",
+    hint: "Dein Zug kommt hier in Hannover um 12.36 Uhr an."
+  },
+  {
+    id: 'l_new_np0irgq5r',
+    part: 1,
+    type: 'true-false',
+    context: "Hallo LI,\n\ndanke für deine Mail. Dein Zug kommt hier in Hannover um 12.36 Uhr an. Ich bin ab 12.15 Uhr im Hauptbahnhof und warte auf dich vor der Auskunft.\n\nDu kannst mich den ganzen Vormittag auf meinem Handy (+49 173 02 205 59) erreichen.\n\nDeine\n\nKarin",
+    prompt: "Karin wartet den ganzen Vormittag vor der Auskunft.",
+    options: ["Richtig", "Falsch"],
+    correctAnswer: "Richtig",
+    hint: "Ich bin ab 12.15 Uhr im Hauptbahnhof und warte auf dich vor der Auskunft"
+  },
+  {
+    id: 'l_new_n1c0z6okd',
+    part: 1,
+    type: 'true-false',
+    context: "Liebe Carmen,\n\nam kommenden Sonntag habe ich Geburtstag. Ich möchte gerne mit dir feiern und lade dich herzlich zu meiner Party am Samstagabend ein. Wir fangen um 21 Uhr an. Ist das okay für dich? Es werden viele Leute da sein, die du auch kennst. Kannst du vielleicht einen Salat mitbringen? Und vergiss bitte nicht einen Pullover oder eine Jacke! Wir wollen nämlich draußen im Garten feiern. Ich freue mich sehr auf dich!\n\nBis zum Wochenende\n\nRalf",
+    prompt: "Ralf hatte am letzten Wochenende Geburtstag.",
+    options: ["Richtig", "Falsch"],
+    correctAnswer: "Falsch",
+    hint: "am kommenden Sonntag habe ich Geburtstag"
+  },
+  {
+    id: 'l_new_od0a2s6pv',
+    part: 1,
+    type: 'true-false',
+    context: "Liebe Carmen,\n\nam kommenden Sonntag habe ich Geburtstag. Ich möchte gerne mit dir feiern und lade dich herzlich zu meiner Party am Samstagabend ein. Wir fangen um 21 Uhr an. Ist das okay für dich? Es werden viele Leute da sein, die du auch kennst. Kannst du vielleicht einen Salat mitbringen? Und vergiss bitte nicht einen Pullover oder eine Jacke! Wir wollen nämlich draußen im Garten feiern. Ich freue mich sehr auf dich!\n\nBis zum Wochenende\n\nRalf",
+    prompt: "Ralf hat nur zwei oder drei Leute eingeladen.",
+    options: ["Richtig", "Falsch"],
+    correctAnswer: "Falsch",
+    hint: "Es werden viele Leute da sein, die du auch kennst."
+  },
+  {
+    id: 'l_new_uj2kwv9my',
+    part: 1,
+    type: 'true-false',
+    context: "Liebe Carmen,\n\nam kommenden Sonntag habe ich Geburtstag. Ich möchte gerne mit dir feiern und lade dich herzlich zu meiner Party am Samstagabend ein. Wir fangen um 21 Uhr an. Ist das okay für dich? Es werden viele Leute da sein, die du auch kennst. Kannst du vielleicht einen Salat mitbringen? Und vergiss bitte nicht einen Pullover oder eine Jacke! Wir wollen nämlich draußen im Garten feiern. Ich freue mich sehr auf dich!\n\nBis zum Wochenende\n\nRalf",
+    prompt: "Die Party findet draußen statt.",
+    options: ["Richtig", "Falsch"],
+    correctAnswer: "Richtig",
+    hint: "Wir wollen nämlich draußen im Garten feiern."
+  },
+  {
+    id: 'l_new_sj16zqm11',
+    part: 3,
+    type: 'true-false',
+    context: "Text about 'Sprachzentrum'",
+    prompt: "Das Sprachzentrum ist umgezogen. Sie finden uns jetzt in der Beethovenstr. 23",
+    options: ["Richtig", "Falsch"],
+    correctAnswer: "Richtig",
+    hint: "Text mentions the Sprachzentrum is now in Beethovenstr. 23"
+  },
+  {
+    id: 'l_new_y8yr8hnwt',
+    part: 3,
+    type: 'true-false',
+    context: "Text about '10-Uhr-Pause'",
+    prompt: "In der Sprachschule können Sie etwas zu essen kaufen.",
+    options: ["Richtig", "Falsch"],
+    correctAnswer: "Richtig",
+    hint: "The text mentions breakfast packets with sandwiches and drinks for 2 Euro are available."
+  },
+  {
+    id: 'l_new_31f5s1jvq',
+    part: 2,
+    type: 'multiple-choice',
+    context: "Various websites shown",
+    prompt: "Sie wollen wissen: Regnet es in Deutschland?",
+    options: ["a", "b"],
+    correctAnswer: "a",
+    hint: "The image shows that 'a' corresponds to wetter.de"
+  },
+  {
+    id: 'l_new_b31a0hbxw',
+    part: 2,
+    type: 'multiple-choice',
+    context: "Various websites shown",
+    prompt: "Sie möchten mit dem Schiff auf dem Rhein fahren.",
+    options: ["a", "b"],
+    correctAnswer: "b",
+    hint: "The image shows that 'b' corresponds to schiff-ruedesheimer.de"
+  },
+  {
+    id: 'l_new_enaternnf',
+    part: 2,
+    type: 'multiple-choice',
+    context: "Various websites shown",
+    prompt: "Sie möchten Deutsch in Deutschland lernen.",
+    options: ["a", "b"],
+    correctAnswer: "b",
+    hint: "The image shows that 'b' corresponds to sprachenfuchs.de"
+  },
+  {
+    id: 'l_new_6osh6f9js',
+    part: 2,
+    type: 'multiple-choice',
+    context: "Various websites shown",
+    prompt: "Sie möchten einen Zugticket im Internet kaufen.",
+    options: ["a", "b"],
+    correctAnswer: "b",
+    hint: "The image shows that 'b' corresponds to DER.com"
+  },
+  {
+    id: 'l_new_eb42zdqyu',
+    part: 2,
+    type: 'multiple-choice',
+    context: "Various websites shown",
+    prompt: "Sie möchten Informationen über den Bodensee.",
+    options: ["a", "b"],
+    correctAnswer: "b",
+    hint: "The image shows that 'b' corresponds to bodensee.de"
+  },
+  {
+    id: 'l_new_i0seietyy',
+    part: 2,
+    type: 'multiple-choice',
+    context: "Various websites shown",
+    prompt: "Sie sind in Wiesbaden und möchten mit dem Zug am Mittag in Hamburg sein.",
+    options: ["a", "b"],
+    correctAnswer: "b",
+    hint: "The image shows that 'b' corresponds to reiseauskunft.bahn.de"
+  },
 ];
 
 export const SCHREIBEN_FORM_POOL = [
@@ -726,7 +858,15 @@ export const SCHREIBEN_FORM_POOL = [
     id: 'sf9',
     description: 'Ihr Freund Vladimir Serjakov (30) aus St. Petersburg lebt in Hamburg. Er ist Reiseleiter. Seit gestern hat er 39 Grad Fieber und geht zum Arzt.',
     fields: ['Name', 'Wohnort', 'Alter', 'Beruf', 'Symptome (Was fehlt?)']
-  }
+  },
+
+  // --- NEW IMPORTED CONTENT ---
+  {
+    id: 'sf_new_t8l2fcse1',
+    type: 'form',
+    description: "Ihre Freundin, Eva Kadavy, macht mit Ihrem Mann und ihren beiden Söhnen (8 und 11 Jahre alt) Urlaub in Seelheim. Frau Kadavy bucht Sie für den nächsten Sonntag eine Busfahrt um den Bodensee. In dem Formular hat keine Kreditkarte. Helfen Sie Ihrer Freundin und schreiben Sie die fünf fehlenden Informationen in das Formular.",
+    fields: ["Anzahl der Personen", "Urlaubsadresse", "PLZ, Urlaubsort", "Zahlungsweise", "Reisetermin"]
+  },
 ];
 
 export const SCHREIBEN_LETTER_POOL = [
@@ -784,7 +924,15 @@ export const SCHREIBEN_LETTER_POOL = [
     prompt: 'Ihr Kollege, Herr Jensch, lädt Sie zur Geburtstagsfeier ein. Schreiben Sie: Sie kommen später und fragen Sie, ob Sie helfen können.',
     hint: 'Polite greeting. Thank him. Explain delay.',
     exampleEmail: 'Lieber Herr Jensch, danke für die Einladung! Ich komme gerne, aber ich komme etwas später, weil ich noch einen Termin habe. Kann ich Ihnen beim Vorbereiten helfen? Viele Grüße, [Name]'
-  }
+  },
+
+  // --- NEW IMPORTED CONTENT ---
+  {
+    id: 'sl_new_dgro7nn8r',
+    prompt: "Sie möchten im August Dresden besuchen. Schreiben Sie an die Touristeninformation. - Warum schreiben Sie? - Bitten Sie um Informationen über Filme, Museen usw. (Kulturprogramm). - Fragen Sie: Hoteladressen?",
+    hint: "Write 30 words covering the points.",
+    exampleEmail: "Liebe [Name],\nIch komme auf Dresden im August. Kann Sie bitte mir Informationer.\nüber Filme oder Kultur Programme in Dresden im August? Auch, sie haben Hoteladressen. Danke schon\nLiebe Grüße\nWilliam McGoram"
+  },
 ];
 
 export const SPEAKING_WORD_CARDS: CardData[] = [
