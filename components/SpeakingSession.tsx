@@ -386,7 +386,7 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
 
       <div className="bg-slate-950 p-6 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <div className="text-slate-500 font-bold text-xs uppercase tracking-widest">Goethe-Zertifikat A1 Simulator</div>
+          <div className="text-slate-500 font-bold text-xs uppercase tracking-widest">Deutsch-Prüfung A1</div>
           <button onClick={onComplete} className="px-6 py-2 bg-red-600 text-white font-black rounded-xl hover:bg-red-700 transition-colors shadow-lg">BEENDEN</button>
         </div>
       </div>
