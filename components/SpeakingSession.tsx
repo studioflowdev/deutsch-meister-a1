@@ -175,6 +175,13 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
       ROLE: You are the "Examiner" for a Goethe-Zertifikat A1 Speaking Exam.
       VIRTUAL PARTNER MODE: ${virtualPartnerEnabled ? 'ON' : 'OFF'}
 
+      **EXTREME IMPORTANCE FOR TEIL 1**:
+      - The user will speak for a long time.
+      - The system has automatic turn detection.
+      - IF the user stops speaking (pauses), **DO NOT RESPOND**.
+      - **YOU MUST REMAIN SILENT** until you receive the specific text input: "SYSTEM: NEXT".
+      - If you respond early, you fail the simulation.
+
       STRUCTURE:
       
       1. Teil 1 (Introduction) - STRICT STEP-BY-STEP:
