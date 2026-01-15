@@ -159,22 +159,21 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
       const systemInstruction = `
       CRITICAL INSTRUCTION: AUDIO OUTPUT MUST BE 100% GERMAN.
       - NEVER speak English.
-      - If you need to give a hint, write it in (brackets) in English, but DO NOT READ IT ALOUD.
-      - DO NOT provides grades (x/10) during the conversation. Grading happens at the end.
+      - DO NOT provide grades during the conversation. Receive "SYSTEM: NEXT" triggers to advance in Teil 1.
 
       ROLE: You are the "Examiner" for a Goethe-Zertifikat A1 Speaking Exam.
       VIRTUAL PARTNER MODE: ${virtualPartnerEnabled ? 'ON' : 'OFF'}
 
       STRUCTURE:
       
-      1. Teil 1 (Sich vorstellen / Introduction):
-         - Ask the student to introduce themselves ("Bitte stellen Sie sich vor").
-         - **WAIT & LISTEN**. The student must cover: Name, Age, Country, City, Languages, Job, Hobbies.
-         - **DO NOT INTERRUPT**. If the student stops after just saying their name, ASK FOR MORE: "Erzählen Sie bitte mehr. Wie alt sind Sie? Was sind Ihre Hobbys?"
-         - Only when the introduction is sufficiently complete (covering 4-5 points), ask **one** follow-up question:
-           * "Können Sie bitte Ihren Nachnamen buchstabieren?" OR
-           * "Wie ist Ihre Handynummer?"
-         - Then say "Vielen Dank" and move to Teil 2.
+      1. Teil 1 (Introduction) - STRICT STEP-BY-STEP:
+         - STEP A: Start by saying "Bitte stellen Sie sich vor." -> THEN REMAIN COMPLETELY SILENT. Do not interrupt.
+         - [WAIT FOR USER INPUT & "SYSTEM: NEXT"]
+         - STEP B: When you receive "SYSTEM: NEXT", ask: "Können Sie bitte Ihren Nachnamen buchstabieren?" -> THEN REMAIN SILENT.
+         - [WAIT FOR USER INPUT & "SYSTEM: NEXT"]
+         - STEP C: When you receive "SYSTEM: NEXT", ask: "Wie ist Ihre Handynummer?" -> THEN REMAIN SILENT.
+         - [WAIT FOR USER INPUT & "SYSTEM: NEXT"]
+         - STEP D: When you receive "SYSTEM: NEXT", say "Vielen Dank." and move to Teil 2.
 
       2. Teil 2 (Thema Karten / Theme Cards):
          - Wait for the student to ask a question based on their card.
@@ -188,7 +187,7 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
           ? '- React appropriately (e.g., "Ja, natürlich", "Hier bitte"). \n         - THEN say: "Jetzt bin ich dran... [Simulate an Image]. Gib mir bitte..." and make a request.\n         - Wait for their reaction.'
           : '- LISTEN ONLY. Acknowledge briefly (e.g. "Gut gemacht"). Do not act out the request. Do not make a counter-request.'}
       
-      IMPORTANT: You are the Examiner/Partner. Be patient. Let the user speak.`;
+      IMPORTANT: In Teil 1, YOU MUST NOT SPEAK until the user clicks "Fertig" (SYSTEM: NEXT).`;
 
       const sessionPromise = ai.live.connect({
         model: 'gemini-2.0-flash-exp',
@@ -387,21 +386,22 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
                   <span>{isActive ? 'Prüfer hört zu...' : 'Nicht verbunden'}</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  {stepIndex === 0 && (
+                  {stepIndex === 0 ? (
                     <button
-                      onClick={() => activeSessionRef.current?.sendRealtimeInput([{ text: "SYSTEM_NOTIFICATION: The user has indicated they are finished with their introduction. Please ask the follow-up questions now." }])}
-                      className="mr-2 px-3 py-1 rounded-full bg-blue-600 text-white text-[10px] font-bold uppercase tracking-widest hover:bg-blue-500 transition-colors animate-pulse"
+                      onClick={() => activeSessionRef.current?.sendRealtimeInput([{ text: "SYSTEM: NEXT" }])}
+                      className="mr-2 px-5 py-2 rounded-full bg-blue-600 text-white text-xs font-bold uppercase tracking-widest hover:bg-blue-500 transition-colors animate-pulse shadow-lg flex items-center gap-2"
                     >
-                      Intro Fertig <i className="fa-solid fa-check ml-1"></i>
+                      <i className="fa-solid fa-check"></i> Fertig / Weiter
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => setVirtualPartnerEnabled(!virtualPartnerEnabled)}
+                      className={`mr-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border transition-colors flex items-center gap-2 ${virtualPartnerEnabled ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : 'bg-slate-700 text-slate-400 border-slate-600'}`}
+                    >
+                      <span className={`w-2 h-2 rounded-full ${virtualPartnerEnabled ? 'bg-emerald-400' : 'bg-slate-500'}`}></span>
+                      Partner AI
                     </button>
                   )}
-                  <button
-                    onClick={() => setVirtualPartnerEnabled(!virtualPartnerEnabled)}
-                    className={`mr-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border transition-colors flex items-center gap-2 ${virtualPartnerEnabled ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : 'bg-slate-700 text-slate-400 border-slate-600'}`}
-                  >
-                    <span className={`w-2 h-2 rounded-full ${virtualPartnerEnabled ? 'bg-emerald-400' : 'bg-slate-500'}`}></span>
-                    Partner AI
-                  </button>
                   <span>Schritt {stepIndex + 1} / 3</span>
                   <button
                     onClick={() => stepIndex > 0 ? setStepIndex(i => i - 1) : null}
