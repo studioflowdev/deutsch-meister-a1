@@ -84,7 +84,7 @@ const App: React.FC = () => {
 
       const cardsWithImages = speakingPool.map(card => ({
         ...card,
-        imageUrl: `/cards/${card.id}.png`
+        imageUrl: card.type === 'picture' ? `/cards/${card.id}.png` : undefined
       }));
 
       const generated: SessionContent = {

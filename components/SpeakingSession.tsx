@@ -34,6 +34,11 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
   const [isActive, setIsActive] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
   const [flippedCardId, setFlippedCardId] = useState<string | null>(null);
+
+  // Reset flipped state when step changes
+  useEffect(() => {
+    setFlippedCardId(null);
+  }, [stepIndex]);
   const [transcript, setTranscript] = useState<TranscriptEntry[]>([]);
   const [currentAiText, setCurrentAiText] = useState("");
   const [userInputText, setUserInputText] = useState("");
@@ -236,14 +241,52 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
         ) : (
           <div className="flex-1 flex flex-col min-h-0">
             {guidanceEnabled && (
-              <div className="mb-6 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-2xl animate-in slide-in-from-top-4">
-                <div className="flex items-start space-x-3">
-                  <i className="fa-solid fa-lightbulb text-yellow-500 mt-1"></i>
-                  <div className="space-y-1">
-                    <p className="text-xs font-black text-yellow-500 uppercase tracking-widest">
-                      {guidanceEnabled ? `Help for Step ${stepIndex + 1}` : `Hilfe für Schritt ${stepIndex + 1}`}
-                    </p>
-                    <p className="text-yellow-100 font-medium leading-relaxed">{currentPart.guidance}</p>
+              <div className="mb-6 space-y-4 animate-in slide-in-from-top-4">
+                {/* General Instruction */}
+                <div className="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-2xl">
+                  <div className="flex items-start space-x-3">
+                    <i className="fa-solid fa-lightbulb text-yellow-500 mt-1"></i>
+                    <div className="space-y-1">
+                      <p className="text-xs font-black text-yellow-500 uppercase tracking-widest">
+                        {guidanceEnabled ? `Help for Step ${stepIndex + 1}` : `Hilfe für Schritt ${stepIndex + 1}`}
+                      </p>
+                      <p className="text-yellow-100 font-medium leading-relaxed">{currentPart.guidance}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Redemittel / Phrase Book */}
+                <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-2xl">
+                  <h4 className="text-xs font-black text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+                    <i className="fa-solid fa-comment-dots"></i> Redemittel (Useful Phrases)
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-blue-100">
+                    {currentPart.id === 1 && (
+                      <>
+                        <div>"Ich heiße [Name]..."</div>
+                        <div>"Ich komme aus [Land]..."</div>
+                        <div>"Ich wohne in [Stadt]..."</div>
+                        <div>"Ich bin [Beruf] von Beruf..."</div>
+                      </>
+                    )}
+                    {currentPart.id === 2 && (
+                      <>
+                        <div className="font-bold text-blue-300 mb-1 col-span-2">Frage formulieren (Formulate Question):</div>
+                        <div>"Haben Sie...?" (Do you have...?)</div>
+                        <div>"Kaufen Sie...?" (Do you buy...?)</div>
+                        <div>"Wo ist...?" (Where is...?)</div>
+                        <div>"Möchten Sie...?" (Would you like...?)</div>
+                      </>
+                    )}
+                    {currentPart.id === 3 && (
+                      <>
+                        <div className="font-bold text-blue-300 mb-1 col-span-2">Bitte formulieren (Formulate Request):</div>
+                        <div>"Können Sie bitte...?" (Can you please...?)</div>
+                        <div>"Geben Sie mir bitte..." (Give me please...)</div>
+                        <div>"Darf ich bitte...?" (May I please...?)</div>
+                        <div>"Machen Sie bitte..." (Please do...)</div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
