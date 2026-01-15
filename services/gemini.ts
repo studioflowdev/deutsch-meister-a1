@@ -99,6 +99,59 @@ export class GeminiService {
       return "Analysis unavailable.";
     }
   }
+
+  /**
+   * multi-modal grading for speaking:
+   * Uses Gemini to listen to the user's audio and grade it against the card/prompt.
+   */
+  async gradeSpeaking(audioBase64: string, cardContent: string, taskType: 'word' | 'picture'): Promise<{ score: number; feedback: string; transcription: string }> {
+    try {
+      const ai = this.getClient();
+      const prompt = `
+      You are a strict Goethe-Zertifikat A1 Examiner. 
+      Task: The student must formulate a question or request (Bitte) based on the card: "${cardContent}".
+      
+      Analyze the audio file:
+      1. Transcribe what the student said.
+      2. Grade the German (Grammar, Pronunciation, Relevance) on a scale of 0-10.
+      3. Provide constructive feedback in simple English (with German corrections).
+
+      Focus:
+      - Did they form a question (W-Frage) or request (Imperativ/Bitte)?
+      - Is it understandable?
+      
+      Return JSON only: { "score": number, "feedback": string, "transcription": string }
+      `;
+
+      const response = await ai.models.generateContent({
+        model: "gemini-2.0-flash-exp", // Standard Flash handles Audio input well now
+        contents: {
+          parts: [
+            { inlineData: { mimeType: "audio/webm", data: audioBase64 } }, // Ensure frontend sends clean base64
+            { text: prompt }
+          ]
+        },
+        config: {
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: Type.OBJECT,
+            properties: {
+              score: { type: Type.NUMBER },
+              feedback: { type: Type.STRING },
+              transcription: { type: Type.STRING }
+            },
+            required: ["score", "feedback", "transcription"]
+          }
+        }
+      });
+
+      return JSON.parse(response.text || '{ "score": 0, "feedback": "AI Error", "transcription": "" }');
+
+    } catch (error) {
+      console.error("Speaking grading failed:", error);
+      return { score: 0, feedback: "Could not grade audio. Please try again.", transcription: "" };
+    }
+  }
 }
 
 export const gemini = new GeminiService();

@@ -218,6 +218,20 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
     return [];
   }, [currentPart.id, cards, activeTopic]);
 
+  const handleCardFlip = (card: CardData) => {
+    const isFlipped = flippedCardId === card.id;
+    const newId = isFlipped ? null : card.id;
+    setFlippedCardId(newId);
+
+    // Send context update to AI if we just flipped a card UP
+    if (!isFlipped && activeSessionRef.current) {
+      console.log("Sending context to AI:", card.content);
+      const contextMessage = `SYSTEM_UPDATE: The user has selected the card: "${card.content}" (Topic: ${card.topic || 'General'}). Expect them to formulate a question or request about this item. Act as the exam partner and respond naturally to them after they speak.`;
+
+      activeSessionRef.current.sendRealtimeInput([{ text: contextMessage }]);
+    }
+  };
+
   return (
     <div className="bg-slate-900 rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col h-[750px] border-8 border-slate-800">
       <div className="flex-1 p-8 flex flex-col min-h-0">
@@ -231,7 +245,7 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
             <div className="space-y-3 text-center">
               <h3 className="text-3xl font-black text-white">Mündliche Prüfung</h3>
               <p className="text-slate-400 text-lg max-w-sm mx-auto leading-relaxed">
-                Interagieren Sie mit dem Prüfer. Die KI gibt Ihnen Feedback zu Ihrer Aussprache.
+                Starten Sie das Gespräch. Die KI ist Ihr Prüfungspartner.
               </p>
             </div>
             <button onClick={startSession} disabled={isLoading} className="px-10 py-5 bg-white text-slate-900 font-black rounded-2xl hover:bg-slate-100 transition-all hover:scale-105 disabled:opacity-50">
@@ -358,7 +372,7 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
                         return (
                           <div
                             key={card.id}
-                            onClick={() => setFlippedCardId(isFlipped ? null : card.id)}
+                            onClick={() => handleCardFlip(card)}
                             className="cursor-pointer perspective-1000 snap-center shrink-0 w-52 h-[300px] relative transition-transform hover:scale-105 active:scale-95 duration-300"
                           >
                             {/* Card Container for Flip Effect */}
