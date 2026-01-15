@@ -33,6 +33,7 @@ interface PartDef {
 const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComplete, guidanceEnabled }) => {
   const [isActive, setIsActive] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
+  const [flippedCardId, setFlippedCardId] = useState<string | null>(null);
   const [transcript, setTranscript] = useState<TranscriptEntry[]>([]);
   const [currentAiText, setCurrentAiText] = useState("");
   const [userInputText, setUserInputText] = useState("");
@@ -280,70 +281,99 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
               </div>
 
               {relevantCards.length > 0 || currentPart.id === 1 ? (
-                <div className="flex overflow-x-auto gap-6 pb-4 snap-x custom-scrollbar justify-center">
-                  {currentPart.id === 1 && currentPart.card ? (
-                    <div className="snap-center shrink-0 w-64 bg-white border-[2px] border-slate-300 shadow-[4px_4px_12px_rgba(0,0,0,0.1)] relative group flex flex-col p-6">
-                      <div className="text-center border-b border-slate-200 pb-2 mb-4">
-                        <h4 className="font-bold text-lg text-slate-800 uppercase tracking-tight">{currentPart.card.title}</h4>
-                      </div>
-                      <ul className="space-y-3 flex-1">
-                        {currentPart.card.points.map((point: string, idx: number) => (
-                          <li key={idx} className="flex items-center gap-3 text-slate-700 font-medium">
-                            <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                            {point}
-                          </li>
-                        ))}
-                      </ul>
-                      <div className="mt-4 pt-2 border-t border-slate-100 text-center">
-                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Goethe-Zertifikat A1</span>
-                      </div>
+                <div className="flex flex-col space-y-4">
+                  {/* Teil 2: Thema Display - Explicitly shown */}
+                  {currentPart.id === 2 && currentPart.topic && (
+                    <div className="text-center">
+                      <span className="inline-block px-6 py-2 bg-white/10 text-white font-['Patrick_Hand'] text-2xl rounded-lg border border-white/20 shadow-sm rotation-1">
+                        Thema: {currentPart.topic}
+                      </span>
                     </div>
-                  ) : (
-                    relevantCards.map(card => (
-                      <div key={card.id} className="snap-center shrink-0 w-52 bg-white border-[2px] border-slate-300 shadow-[4px_4px_12px_rgba(0,0,0,0.1)] relative group flex flex-col">
-                        {/* Authentic Card Header matching physical copies */}
-                        <div className="flex flex-col px-2 py-1 bg-white border-b border-slate-200">
-                          <div className="flex justify-between items-center w-full">
-                            <span className="text-[7px] font-bold text-slate-700 uppercase tracking-tight">Start Deutsch 1</span>
-                            <span className="text-[7px] font-bold text-slate-700 uppercase tracking-tight">Sprechen Teil {currentPart.id}</span>
-                          </div>
-                          <span className="text-[6px] text-slate-400 uppercase tracking-tighter">Kandidatenblätter</span>
+                  )}
+
+                  <div className="flex overflow-x-auto gap-6 pb-4 snap-x custom-scrollbar justify-center min-h-[300px] items-center">
+                    {currentPart.id === 1 && currentPart.card ? (
+                      <div className="snap-center shrink-0 w-64 bg-white border-[2px] border-slate-300 shadow-[4px_4px_12px_rgba(0,0,0,0.1)] relative group flex flex-col p-6 h-[350px]">
+                        <div className="text-center border-b border-slate-200 pb-2 mb-4">
+                          <h4 className="font-bold text-lg text-slate-800 uppercase tracking-tight">{currentPart.card.title}</h4>
                         </div>
-
-                        {/* Main Illustration Area */}
-                        <div className="flex-1 aspect-square w-full p-4 flex flex-col items-center justify-center relative overflow-hidden bg-white">
-                          {card.imageUrl ? (
-                            <img
-                              src={card.imageUrl}
-                              alt={card.content}
-                              className="w-full h-full object-contain mix-blend-multiply grayscale contrast-125 brightness-95"
-                            />
-                          ) : (
-                            <div className="flex flex-col items-center justify-center space-y-2 text-slate-200">
-                              <i className={`fa-solid ${card.icon || 'fa-image'} text-4xl opacity-30`}></i>
-                            </div>
-                          )}
-
-                          {/* Guidance overlay: Show translation when toggled */}
-                          {(guidanceEnabled || isActive === false) && (
-                            <div className={`absolute inset-0 bg-white/95 flex flex-col items-center justify-center p-4 text-center transition-opacity duration-300 ${guidanceEnabled ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
-                              <span className="text-[9px] font-black text-blue-600 uppercase tracking-widest mb-1">{card.type === 'word' ? `Thema: ${card.topic}` : 'Bitte formulieren'}</span>
-                              <span className="text-lg font-black text-slate-900 leading-tight mb-3">{card.content}</span>
-                              {guidanceEnabled && (
-                                <div className="mt-2 pt-2 border-t border-slate-100 w-full">
-                                  <p className="text-[9px] text-slate-500 italic font-medium">Hint: "{card.exampleQuestion}"</p>
-                                </div>
-                              )}
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Bottom Footer - Simple like the physical ones */}
-                        <div className="bg-white px-2 py-1 border-t border-slate-100 flex justify-center">
-                          <span className="text-[7px] font-bold text-slate-300 uppercase">Goethe-Institut</span>
+                        <ul className="space-y-3 flex-1">
+                          {currentPart.card.points.map((point: string, idx: number) => (
+                            <li key={idx} className="flex items-center gap-3 text-slate-700 font-medium">
+                              <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="mt-4 pt-2 border-t border-slate-100 text-center">
+                          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">A1 - Start Deutsch 1</span>
                         </div>
                       </div>
-                    )))}
+                    ) : (
+                      relevantCards.map(card => {
+                        const isFlipped = flippedCardId === card.id;
+                        return (
+                          <div
+                            key={card.id}
+                            onClick={() => setFlippedCardId(isFlipped ? null : card.id)}
+                            className="cursor-pointer perspective-1000 snap-center shrink-0 w-52 h-[300px] relative transition-transform hover:scale-105 active:scale-95 duration-300"
+                          >
+                            {/* Card Container for Flip Effect */}
+                            <div className={`w-full h-full relative transition-all duration-500 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
+
+                              {/* FRONT (Face Down) */}
+                              <div className="absolute inset-0 backface-hidden bg-slate-100 border-4 border-white shadow-xl rounded-xl flex flex-col items-center justify-center bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
+                                <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-sm mb-4">
+                                  <span className="font-['Merriweather'] font-bold text-slate-400 text-2xl">?</span>
+                                </div>
+                                <span className="text-slate-400 font-bold uppercase tracking-widest text-xs">Karte antippen</span>
+                              </div>
+
+                              {/* BACK (Face Up - Content) */}
+                              <div className="absolute inset-0 backface-hidden rotate-y-180 bg-white border-[2px] border-slate-300 shadow-xl rounded-xl flex flex-col overflow-hidden">
+                                {/* Header */}
+                                <div className="flex flex-col px-2 py-1 bg-white border-b border-slate-200">
+                                  <div className="flex justify-between items-center w-full">
+                                    <span className="text-[7px] font-bold text-slate-700 uppercase tracking-tight">Start Deutsch 1</span>
+                                    <span className="text-[7px] font-bold text-slate-700 uppercase tracking-tight">Teil {currentPart.id}</span>
+                                  </div>
+                                  <span className="text-[6px] text-slate-400 uppercase tracking-tighter">Kandidatenblätter</span>
+                                </div>
+
+                                {/* Main Content Area */}
+                                <div className="flex-1 flex flex-col items-center justify-center p-4 relative">
+                                  {currentPart.id === 2 ? (
+                                    // Teil 2: WORD ONLY (Theme is above)
+                                    <div className="text-center">
+                                      <span className="block font-['Merriweather'] font-bold text-2xl text-slate-800 break-words leading-tight">{card.content}</span>
+                                    </div>
+                                  ) : (
+                                    // Teil 3: IMAGE ONLY (No Text, No Theme)
+                                    card.imageUrl ? (
+                                      <img
+                                        src={card.imageUrl}
+                                        alt="Situation"
+                                        className="w-full h-full object-contain mix-blend-multiply grayscale contrast-125 brightness-95"
+                                      />
+                                    ) : (
+                                      <i className={`fa-solid ${card.icon || 'fa-image'} text-6xl text-slate-800`}></i>
+                                    )
+                                  )}
+                                </div>
+
+                                {/* Footer - SCRUBBED for Part 3 */}
+                                {currentPart.id !== 3 && (
+                                  <div className="bg-white px-2 py-1 border-t border-slate-100 flex justify-center">
+                                    <span className="text-[7px] font-bold text-slate-300 uppercase">Goethe-Institut</span>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      })
+                    )}
+                  </div>
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center py-10 bg-white/5 rounded-2xl border border-dashed border-white/20">
