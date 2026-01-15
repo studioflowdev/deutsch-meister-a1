@@ -246,6 +246,12 @@ const App: React.FC = () => {
                         <p key={i} className="mb-4">{line}</p>
                       ))}
                     </div>
+                    {exam.guidanceEnabled && q.translation && (
+                      <div className="mt-4 pt-4 border-t border-slate-200">
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Translation</p>
+                        <p className="text-slate-600 italic leading-relaxed text-sm font-sans">{q.translation}</p>
+                      </div>
+                    )}
                   </div>
                 ) : q.part === 2 ? (
                   <div className={`max-w-xl mx-auto p-6 ${index % 2 === 0 ? 'bg-stone-100 border-2 border-dashed border-slate-400 font-[\'Merriweather\']' : 'bg-white border-4 border-orange-500 font-sans'}`}>
@@ -260,6 +266,12 @@ const App: React.FC = () => {
                     <div className="text-right text-sm font-bold text-slate-600 mt-2">
                       Tel: 0{(q.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) * 7) % 900 + 100} - {(q.id.split('').reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) % 90000, 0)) + 10000}
                     </div>
+                    {exam.guidanceEnabled && q.translation && (
+                      <div className="mt-4 pt-2 border-t border-slate-300 border-dashed">
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 sans-serif">Translation</p>
+                        <p className="text-slate-600 italic leading-tight text-sm font-sans">{q.translation}</p>
+                      </div>
+                    )}
                   </div>
                 ) : (
                   <div className="flex justify-center my-8">
@@ -278,6 +290,12 @@ const App: React.FC = () => {
                       <div className="uppercase font-black text-slate-900 text-xl tracking-tight leading-tight">
                         {q.context}
                       </div>
+                      {exam.guidanceEnabled && q.translation && (
+                        <div className="mt-6 pt-4 border-t border-slate-100">
+                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Translation</p>
+                          <p className="text-slate-600 italic leading-tight text-sm font-sans whitespace-normal lowercase first-letter:uppercase">{q.translation}</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}

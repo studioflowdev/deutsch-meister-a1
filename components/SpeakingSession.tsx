@@ -34,11 +34,24 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
   const [isActive, setIsActive] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
   const [flippedCardId, setFlippedCardId] = useState<string | null>(null);
+  const [virtualPartnerEnabled, setVirtualPartnerEnabled] = useState(true);
 
   // Reset flipped state when step changes
   useEffect(() => {
     setFlippedCardId(null);
   }, [stepIndex]);
+
+  // Update AI context when mode changes
+  useEffect(() => {
+    if (activeSessionRef.current) {
+      activeSessionRef.current.sendRealtimeInput({
+        text: `SYSTEM UPDATE: Virtual Partner Mode is now ${virtualPartnerEnabled ? 'ON' : 'OFF'}. 
+               If OFF: Do NOT act as a partner. Only listen and act as Examiner. 
+               If ON: Act as a partner (answer questions, ask counter-questions).`
+      });
+    }
+  }, [virtualPartnerEnabled]);
+
   const [transcript, setTranscript] = useState<TranscriptEntry[]>([]);
   const [currentAiText, setCurrentAiText] = useState("");
   const [userInputText, setUserInputText] = useState("");
@@ -144,32 +157,31 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
       const systemInstruction = `
-      ROLE: You are the "Examiner" AND the "Virtual Partner" for a Goethe-Zertifikat A1 Speaking Exam.
-      
+      ROLE: You are the "Examiner" for a Goethe-Zertifikat A1 Speaking Exam.
+      VIRTUAL PARTNER MODE: ${virtualPartnerEnabled ? 'ON' : 'OFF'}
+
       TONE: 
       - As Examiner: Formal, kind, clear German. (Introduction, feedback)
-      - As Partner: Simple A1-level German, friendly student. (Teil 2 & 3 interactions)
+      ${virtualPartnerEnabled ? '- As Partner: Simple A1-level German, friendly student. (Teil 2 & 3 interactions)' : ''}
 
       STRUCTURE:
-      1. Teil 1 (Introduction): Ask the student to introduce themselves based on the keywords. Ask 1-2 follow-up questions (spelling names, telephone numbers).
+      1. Teil 1 (Introduction): Ask the student to introduce themselves based on the keywords. Ask 1-2 follow-up questions.
       2. Teil 2 (Theme Cards):
-         - Wait for the student to ask YOU a question based on their card.
-         - Answer simply (as Partner).
-         - THEN immediately say "Danke. Meine Frage an dich:" and ask the student a NEW question based on the same topic (as if you drew a card).
-         - Wait for their answer.
-         - Repeat for next round if needed.
+         - Wait for the student to ask a question based on their card.
+         ${virtualPartnerEnabled
+          ? '- Answer simply (as Partner), e.g., "Ja, ich mache das gern." \n         - THEN immediately say "Danke. Meine Frage an dich:" and ask the student a NEW question based on the same topic.\n         - Wait for their answer.'
+          : '- LISTEN ONLY. Do not answer the question as a partner. Do not ask a counter-question. \n         - Briefly acknowledge (e.g., "Danke", "Nächste Karte bitte") and wait for the student to flip the next card.'}
       3. Teil 3 (Request Cards):
          - Wait for the student to make a request/imperative.
-         - React appropriately (e.g., "Ja, natürlich", "Hier bitte").
-         - THEN make a request to the student (e.g., "Gib mir bitte deine Handynummer").
-         - Wait for their reaction.
+         ${virtualPartnerEnabled
+          ? '- React appropriately (e.g., "Ja, natürlich", "Hier bitte"). \n         - THEN make a request to the student (e.g., "Gib mir bitte deine Handynummer").\n         - Wait for their reaction.'
+          : '- LISTEN ONLY. Acknowledge briefly (e.g. "Gut gemacht"). Do not act out the request. Do not make a counter-request.'}
 
       FEEDBACK / PRONUNCIATION:
-      - Always verify if the student understood.
       - If their pronunciation is poor, add a short tip in brackets at the end of your response, e.g., (Tip: "Sprechen" is pronounced with a 'sh' sound).
-      - Keep the conversation moving. Don't lecture.
+      - After each interaction (Question + Response), provide a short "GRADE: x/10" in brackets based on grammar and understandability.
       
-      IMPORTANT: You are simulating a GROUP exam with just the AI and the User. You must fill the role of the partner.`;
+      IMPORTANT: ${virtualPartnerEnabled ? 'You are simulating a GROUP exam. You must act as the partner.' : 'You are observing the exam. Rate the student silent or minimally.'}`;
 
       const sessionPromise = ai.live.connect({
         model: 'gemini-2.0-flash-exp',
@@ -374,9 +386,28 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
                   <span className={`w-2 h-2 rounded-full ${isActive ? 'bg-emerald-500 animate-ping' : 'bg-slate-600'}`}></span>
                   <span>{isActive ? 'Prüfer hört zu...' : 'Nicht verbunden'}</span>
                 </div>
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => setVirtualPartnerEnabled(!virtualPartnerEnabled)}
+                    className={`mr-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border transition-colors flex items-center gap-2 ${virtualPartnerEnabled ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : 'bg-slate-700 text-slate-400 border-slate-600'}`}
+                  >
+                    <span className={`w-2 h-2 rounded-full ${virtualPartnerEnabled ? 'bg-emerald-400' : 'bg-slate-500'}`}></span>
+                    Partner AI
+                  </button>
                   <span>Schritt {stepIndex + 1} / 3</span>
-                  <button onClick={() => stepIndex < 2 ? setStepIndex(i => i + 1) : null} className={`ml-2 px-3 py-1 rounded bg-blue-600/20 text-blue-400 hover:bg-blue-600/40 transition-colors ${stepIndex === 2 ? 'opacity-50 cursor-not-allowed' : ''}`}>Nächster Teil <i className="fa-solid fa-arrow-right ml-1"></i></button>
+                  <button
+                    onClick={() => stepIndex > 0 ? setStepIndex(i => i - 1) : null}
+                    className={`ml-2 px-3 py-1 rounded bg-slate-700 hover:bg-slate-600 transition-colors ${stepIndex === 0 ? 'opacity-20 cursor-not-allowed' : 'text-blue-200'}`}
+                    disabled={stepIndex === 0}
+                  >
+                    <i className="fa-solid fa-arrow-left mr-1"></i> Prev
+                  </button>
+                  <button
+                    onClick={() => stepIndex < 2 ? setStepIndex(i => i + 1) : null}
+                    className={`px-3 py-1 rounded bg-blue-600/20 text-blue-400 hover:bg-blue-600/40 transition-colors ${stepIndex === 2 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  >
+                    Next <i className="fa-solid fa-arrow-right ml-1"></i>
+                  </button>
                 </div>
               </div>
 
