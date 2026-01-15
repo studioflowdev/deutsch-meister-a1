@@ -169,16 +169,62 @@ const App: React.FC = () => {
                 {exam.guidanceEnabled ? 'Part 2: Reading - Read the texts and answer the questions.' : 'Lesen Sie die Texte und beantworten Sie die Fragen.'}
               </p>
             </div>
-            {sessionContent.lesen.map(q => (
-              <div key={q.id} className="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200">
-                <div className="bg-slate-50 p-8 border-b border-slate-100 italic text-lg leading-relaxed text-slate-700">{q.context}</div>
-                <div className="p-8">
-                  <div className="flex items-start justify-between mb-6">
-                    <p className="text-xl font-bold text-slate-800">{q.prompt}</p>
+            {sessionContent.lesen.map((q, index) => (
+              <div key={q.id} className="bg-transparent mb-12">
+                {q.part === 1 ? (
+                  <div className={`relative p-8 shadow-xl max-w-2xl mx-auto transform transition-transform hover:scale-[1.01] ${q.context.includes('Liebe') || q.context.includes('Hallo') ? 'bg-[#fefce8] -rotate-1 rounded-sm' : 'bg-white rounded-lg border border-slate-200'}`}>
+                    {(q.context.includes('Liebe') || q.context.includes('Hallo')) && (
+                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 bg-yellow-200/50 backdrop-blur-sm rotate-2 shadow-sm"></div>
+                    )}
+
+                    <div className={`${q.context.includes('Liebe') || q.context.includes('Hallo') ? "font-['Patrick_Hand'] text-2xl text-slate-800 leading-normal" : "font-['Merriweather'] text-lg text-slate-700 leading-relaxed"}`}>
+                      {q.context.split('\n').map((line, i) => (
+                        <p key={i} className="mb-4">{line}</p>
+                      ))}
+                    </div>
+                  </div>
+                ) : q.part === 2 ? (
+                  <div className={`max-w-xl mx-auto p-6 ${index % 2 === 0 ? 'bg-stone-100 border-2 border-dashed border-slate-400 font-[\'Merriweather\']' : 'bg-white border-4 border-orange-500 font-sans'}`}>
+                    <div className="flex justify-between items-start mb-4 border-b border-slate-300 pb-2">
+                      <span className="text-xs uppercase font-bold tracking-widest text-slate-500">Anzeige {index + 120}</span>
+                      <span className="text-xs font-serif italic text-slate-400">Wochenblatt</span>
+                    </div>
+                    <h3 className="font-bold text-xl mb-2">{q.prompt.includes('Wohnung') ? 'Immobilienmarkt' : q.prompt.includes('Arbeit') ? 'Stellenmarkt' : 'Kleinanzeigen'}</h3>
+                    <div className="text-lg leading-snug text-slate-800 mb-4">
+                      {q.context}
+                    </div>
+                    <div className="text-right text-sm font-bold text-slate-600 mt-2">
+                      Tel: 0{Math.floor(Math.random() * 900) + 100} - {Math.floor(Math.random() * 90000) + 10000}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex justify-center my-8">
+                    <div className={`relative px-8 py-10 min-w-[300px] text-center bg-white shadow-2xl ${q.context.toLowerCase().includes('verboten') || q.context.toLowerCase().includes('nicht') ? 'border-8 border-red-600 rounded-xl' : 'border-8 border-blue-600 rounded-xl'}`}>
+                      <div className="absolute top-2 left-2 w-3 h-3 rounded-full bg-slate-300 border border-slate-400"></div>
+                      <div className="absolute top-2 right-2 w-3 h-3 rounded-full bg-slate-300 border border-slate-400"></div>
+                      <div className="absolute bottom-2 left-2 w-3 h-3 rounded-full bg-slate-300 border border-slate-400"></div>
+                      <div className="absolute bottom-2 right-2 w-3 h-3 rounded-full bg-slate-300 border border-slate-400"></div>
+
+                      <div className="mb-4">
+                        {q.context.toLowerCase().includes('verboten') || q.context.toLowerCase().includes('nicht') ?
+                          <i className="fa-solid fa-ban text-6xl text-red-600"></i> :
+                          <i className="fa-solid fa-circle-info text-6xl text-blue-600"></i>
+                        }
+                      </div>
+                      <div className="uppercase font-black text-slate-900 text-xl tracking-tight leading-tight">
+                        {q.context}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-6 bg-white rounded-2xl p-6 shadow-sm border border-slate-100 max-w-2xl mx-auto">
+                  <div className="flex items-start justify-between mb-4">
+                    <p className="text-lg font-bold text-slate-800">{q.prompt}</p>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-4">
                     {q.options?.map(opt => (
-                      <button key={opt} onClick={() => handleAnswer(q.id, opt)} className={`flex-1 py-4 px-6 rounded-2xl border-2 font-bold transition-all ${exam.answers[q.id] === opt ? 'bg-blue-600 border-blue-600 text-white shadow-lg' : 'bg-white border-slate-100 text-slate-600 hover:border-slate-300'}`}>{opt}</button>
+                      <button key={opt} onClick={() => handleAnswer(q.id, opt)} className={`flex-1 py-3 px-5 rounded-xl border-2 font-bold transition-all text-sm ${exam.answers[q.id] === opt ? 'bg-blue-600 border-blue-600 text-white shadow-md' : 'bg-slate-50 border-slate-100 text-slate-600 hover:border-slate-300'}`}>{opt}</button>
                     ))}
                   </div>
                 </div>
@@ -194,22 +240,65 @@ const App: React.FC = () => {
                 {exam.guidanceEnabled ? 'Part 3: Writing - Fill out the form and write a short message.' : 'Füllen Sie das Formular aus und schreiben Sie eine kurze Nachricht.'}
               </p>
             </div>
-            <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-200">
-              <h3 className="font-bold text-lg mb-4 text-blue-600 uppercase tracking-wider flex items-center gap-2"><i className="fa-solid fa-list-check"></i>Aufgabe 1: Formular</h3>
-              <p className="bg-blue-50 p-6 rounded-2xl text-blue-900 mb-8 leading-relaxed font-medium border border-blue-100">{sessionContent.schreibenForm.description}</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {sessionContent.schreibenForm.fields.map((field: string) => (
-                  <div key={field}>
-                    <label className="block text-xs font-black text-slate-400 mb-2 uppercase tracking-widest">{field}</label>
-                    <input type="text" className="w-full px-6 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:ring-4 focus:ring-blue-100 outline-none transition-all text-lg font-medium" placeholder={`${field}...`} onChange={(e) => handleAnswer(`form_${field}`, e.target.value)} />
-                  </div>
-                ))}
+
+            {/* Aufgabe 1: Formular (Official Bureaucracy Style) */}
+            <div className="bg-[#fffbf0] rounded-sm shadow-xl border border-stone-300 max-w-3xl mx-auto overflow-hidden relative">
+              {/* Paper Holes */}
+              <div className="absolute top-1/2 -left-3 w-6 h-6 rounded-full bg-slate-100 shadow-inner border border-stone-200"></div>
+              <div className="absolute top-1/2 -right-3 w-6 h-6 rounded-full bg-slate-100 shadow-inner border border-stone-200"></div>
+
+              {/* Official Header */}
+              <div className="bg-orange-100 border-b-2 border-orange-300 p-6 flex justify-between items-end">
+                <div>
+                  <h3 className="font-['Merriweather'] font-bold text-2xl text-stone-800 uppercase tracking-widest">Formular</h3>
+                  <p className="text-xs font-bold text-orange-800 mt-1 uppercase">Bitte in Blockschrift ausfüllen</p>
+                </div>
+                <div className="border-2 border-stone-800 px-3 py-1 font-mono text-xl font-bold rotate-[-2deg] opacity-70">
+                  A1
+                </div>
+              </div>
+
+              <div className="p-8 md:p-12">
+                <p className="bg-white p-4 mb-8 border-l-4 border-blue-500 text-slate-700 italic text-sm shadow-sm font-medium">
+                  <strong className="block text-blue-600 not-italic mb-1 uppercase text-xs tracking-wider">Situation:</strong>
+                  {sessionContent.schreibenForm.description}
+                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 font-['Merriweather']">
+                  {sessionContent.schreibenForm.fields.map((field: string, idx: number) => (
+                    <div key={field} className="relative group">
+                      <div className="flex items-end gap-3">
+                        <div className="bg-orange-200 text-orange-900 font-bold text-sm px-2 py-0.5 rounded-sm shadow-sm h-fit self-center">
+                          {11 + idx}
+                        </div>
+                        <div className="flex-1">
+                          <label className="block text-[10px] font-bold text-stone-500 uppercase tracking-widest mb-1">{field}</label>
+                          <div className="relative">
+                            <input
+                              type="text"
+                              className="w-full bg-white/50 border-b-2 border-stone-400 focus:border-blue-600 focus:bg-white outline-none px-2 py-1 text-2xl text-blue-900 font-['Patrick_Hand'] transition-colors h-10"
+                              placeholder="..."
+                              onChange={(e) => handleAnswer(`form_${field}`, e.target.value)}
+                            />
+                            {/* Handwriting guide lines (visual flourish) */}
+                            <div className="absolute bottom-1 left-0 right-0 h-px bg-blue-100 pointer-events-none opacity-0 group-focus-within:opacity-50"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-stone-100 p-2 text-center text-[10px] text-stone-400 font-mono border-t border-stone-200 uppercase">
+                Seite 1 von 1 • Goethe-Zertifikat A1 Modellsatz
               </div>
             </div>
-            <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-200">
+
+            {/* Aufgabe 2: E-Mail */}
+            <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-200 mt-12">
               <h3 className="font-bold text-lg mb-4 text-blue-600 uppercase tracking-wider flex items-center gap-2"><i className="fa-solid fa-envelope"></i>Aufgabe 2: E-Mail</h3>
               <p className="text-xl font-bold text-slate-800 leading-snug mb-8">{sessionContent.schreibenLetter.prompt}</p>
-              <textarea rows={12} className="w-full px-8 py-6 rounded-2xl bg-slate-50 border border-slate-200 focus:ring-4 focus:ring-blue-100 outline-none resize-none text-xl leading-relaxed mb-6" onChange={(e) => handleAnswer('email_text', e.target.value)} placeholder="Schreiben Sie hier Ihre E-Mail..." value={exam.answers['email_text'] || ''} />
+              <textarea rows={12} className="w-full px-8 py-6 rounded-2xl bg-slate-50 border border-slate-200 focus:ring-4 focus:ring-blue-100 outline-none resize-none text-xl leading-relaxed mb-6 font-['Patrick_Hand'] text-slate-700" onChange={(e) => handleAnswer('email_text', e.target.value)} placeholder="Schreiben Sie hier Ihre E-Mail..." value={exam.answers['email_text'] || ''} />
               <button onClick={handleGradeWriting} disabled={isGrading} className="w-full md:w-auto px-10 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl shadow-xl transition-all active:scale-95 disabled:opacity-50">{isGrading ? 'Prüfer bewertet...' : 'Abgeben & Bewerten'}</button>
               {gradingResult && (
                 <div className="mt-8 p-8 bg-blue-50 border border-blue-200 rounded-3xl shadow-sm">
