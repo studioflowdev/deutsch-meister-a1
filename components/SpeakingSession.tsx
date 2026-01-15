@@ -112,6 +112,26 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
     return result;
   };
 
+  // Audio instruction playback
+  useEffect(() => {
+    if (!isActive) return;
+
+    const audioFiles = [
+      "/audio/instruction_sprechen_part1.wav",
+      "/audio/instruction_sprechen_part2.wav",
+      "/audio/instruction_sprechen_part3.wav"
+    ];
+
+    const playInstruction = async () => {
+      // Simple delay to let the UI settle
+      await new Promise(r => setTimeout(r, 1000));
+      const audio = new Audio(audioFiles[stepIndex]);
+      audio.play().catch(e => console.log("Audio play prevented", e));
+    };
+
+    playInstruction();
+  }, [stepIndex, isActive]);
+
   const startSession = async () => {
     setIsLoading(true);
     try {
@@ -123,10 +143,33 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
       outputNode.connect(outputAudioContext.destination);
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
-      const systemInstruction = `Du bist ein offizieller Prüfer für das Goethe-Zertifikat A1 UND ein Aussprache-Coach.
-      Führe den Schüler durch die Prüfung:
-      ${shuffledParts.map((p, i) => `${i + 1}. ${p.instruction}`).join('\n')}
-      Achte auf die Aussprache und gib am Ende deiner Antwort einen kurzen Tipp IN ENGLISCHER SPRACHE in Klammern, falls die Aussprache nicht perfekt war.`;
+      const systemInstruction = `
+      ROLE: You are the "Examiner" AND the "Virtual Partner" for a Goethe-Zertifikat A1 Speaking Exam.
+      
+      TONE: 
+      - As Examiner: Formal, kind, clear German. (Introduction, feedback)
+      - As Partner: Simple A1-level German, friendly student. (Teil 2 & 3 interactions)
+
+      STRUCTURE:
+      1. Teil 1 (Introduction): Ask the student to introduce themselves based on the keywords. Ask 1-2 follow-up questions (spelling names, telephone numbers).
+      2. Teil 2 (Theme Cards):
+         - Wait for the student to ask YOU a question based on their card.
+         - Answer simply (as Partner).
+         - THEN immediately say "Danke. Meine Frage an dich:" and ask the student a NEW question based on the same topic (as if you drew a card).
+         - Wait for their answer.
+         - Repeat for next round if needed.
+      3. Teil 3 (Request Cards):
+         - Wait for the student to make a request/imperative.
+         - React appropriately (e.g., "Ja, natürlich", "Hier bitte").
+         - THEN make a request to the student (e.g., "Gib mir bitte deine Handynummer").
+         - Wait for their reaction.
+
+      FEEDBACK / PRONUNCIATION:
+      - Always verify if the student understood.
+      - If their pronunciation is poor, add a short tip in brackets at the end of your response, e.g., (Tip: "Sprechen" is pronounced with a 'sh' sound).
+      - Keep the conversation moving. Don't lecture.
+      
+      IMPORTANT: You are simulating a GROUP exam with just the AI and the User. You must fill the role of the partner.`;
 
       const sessionPromise = ai.live.connect({
         model: 'gemini-2.0-flash-exp',
