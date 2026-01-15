@@ -51,6 +51,7 @@ const App: React.FC = () => {
   const [isGrading, setIsGrading] = useState(false);
   const [isPreparing, setIsPreparing] = useState(false);
   const [gradingError, setGradingError] = useState<string | null>(null);
+  const [speakingResult, setSpeakingResult] = useState<{ score: number, feedback: string } | null>(null);
 
   // Timer Logic
   useEffect(() => {
@@ -467,7 +468,15 @@ const App: React.FC = () => {
               </div>
               <div className="bg-emerald-50 text-emerald-600 px-4 py-2 rounded-full font-black text-xs animate-pulse border border-emerald-100">LIVE KI SITZUNG</div>
             </div>
-            <SpeakingSession cards={sessionContent.speakingCards} mode={exam.mode} onComplete={nextSection} guidanceEnabled={exam.guidanceEnabled} />
+            <SpeakingSession
+              cards={sessionContent.speakingCards}
+              mode={exam.mode}
+              onComplete={(score: number, feedback: string) => {
+                setSpeakingResult({ score, feedback });
+                nextSection();
+              }}
+              guidanceEnabled={exam.guidanceEnabled}
+            />
           </div>
         )}
         {exam.section === ExamSection.RESULTS && sessionContent && (
@@ -478,14 +487,16 @@ const App: React.FC = () => {
             maxReading={sessionContent.lesen.length}
             writingScore={gradingResult?.score ?? null}
             writingFeedback={gradingResult?.feedback ?? null}
+            speakingScore={speakingResult?.score ?? null}
+            speakingFeedback={speakingResult?.feedback ?? null}
             onHome={() => setExam({ ...exam, section: ExamSection.HOME, answers: {} })}
           />
         )}
         {exam.section !== ExamSection.RESULTS && exam.section !== ExamSection.SUMMARY && exam.section !== ExamSection.SPRECHEN && (
           <div className={`fixed bottom-10 left-1/2 -translate-x-1/2 w-full max-w-sm px-6 z-50 transition-all duration-500 ${(exam.section === ExamSection.HOEREN && sessionContent.hoeren.every(q => exam.answers[q.id])) ||
-              (exam.section === ExamSection.LESEN && sessionContent.lesen.every(q => exam.answers[q.id])) ||
-              (exam.section === ExamSection.SCHREIBEN && (exam.answers['email_text']?.length || 0) > 10)
-              ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
+            (exam.section === ExamSection.LESEN && sessionContent.lesen.every(q => exam.answers[q.id])) ||
+            (exam.section === ExamSection.SCHREIBEN && (exam.answers['email_text']?.length || 0) > 10)
+            ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
             }`}>
             <button onClick={nextSection} className="w-full py-6 bg-blue-600 hover:bg-blue-700 text-white text-xl font-black rounded-[2rem] shadow-[0_20px_50px_rgba(37,99,235,0.3)] flex items-center justify-center gap-3">
               Nächster Teil <i className="fa-solid fa-arrow-right"></i>

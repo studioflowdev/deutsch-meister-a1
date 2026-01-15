@@ -8,7 +8,7 @@ import { shuffleArray } from '../utils/exam';
 interface SpeakingSessionProps {
   cards: CardData[];
   mode: ExamMode;
-  onComplete: () => void;
+  onComplete: (score: number, feedback: string) => void;
   guidanceEnabled?: boolean;
 }
 
@@ -139,6 +139,17 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
       // Simple delay to let the UI settle
       await new Promise(r => setTimeout(r, 1000));
       const audio = new Audio(audioFiles[stepIndex]);
+
+      // For Step 1, trigger the AI Start AFTER the audio instructions finish
+      if (stepIndex === 0) {
+        audio.onended = () => {
+          console.log("Audio finished - triggering AI Start");
+          if (activeSessionRef.current) {
+            activeSessionRef.current.sendRealtimeInput([{ text: "SYSTEM: START" }]);
+          }
+        };
+      }
+
       audio.play().catch(e => console.log("Audio play prevented", e));
     };
 
@@ -167,7 +178,8 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
       STRUCTURE:
       
       1. Teil 1 (Introduction) - STRICT STEP-BY-STEP:
-         - STEP A: Start by saying "Bitte stellen Sie sich vor." -> THEN REMAIN COMPLETELY SILENT. Do not interrupt.
+         - INITIAL: WAIT SILENTLY FOR "SYSTEM: START".
+         - STEP A: On "SYSTEM: START", say "Bitte stellen Sie sich vor." -> THEN REMAIN COMPLETELY SILENT. Do not interrupt.
          - [WAIT FOR USER INPUT & "SYSTEM: NEXT"]
          - STEP B: When you receive "SYSTEM: NEXT", ask: "Können Sie bitte Ihren Nachnamen buchstabieren?" -> THEN REMAIN SILENT.
          - [WAIT FOR USER INPUT & "SYSTEM: NEXT"]
@@ -233,6 +245,19 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
               const fullTurnBuffer = concatenateAudioBuffers(currentTurnChunksRef.current, outputAudioContextRef.current!);
               currentTurnChunksRef.current = [];
               setTranscript(prev => [...prev, { role: 'user', text: userInputText || "..." }, { role: 'ai', text: cleanText, pronunciationTip: tip, audioBuffer: fullTurnBuffer }]);
+
+              // Check for FINAL GRADE
+              if (cleanText.includes("GRADE:")) {
+                const scoreMatch = cleanText.match(/GRADE:\s*(\d+)/);
+                const feedbackMatch = cleanText.match(/FEEDBACK:\s*(.+)/i); // Case insensitive
+                if (scoreMatch) {
+                  const score = Math.min(10, Math.max(0, parseInt(scoreMatch[1])));
+                  const feedback = feedbackMatch ? feedbackMatch[1] : "Prüfung beendet.";
+                  // Call parent onComplete with score
+                  setTimeout(() => onComplete(score, feedback), 2000); // Small delay to let audio finish
+                }
+              }
+
               setCurrentAiText(""); setUserInputText("");
             }
           },
@@ -526,7 +551,18 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
       <div className="bg-slate-950 p-6 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="text-slate-500 font-bold text-xs uppercase tracking-widest">Deutsch-Prüfung A1</div>
-          <button onClick={onComplete} className="px-6 py-2 bg-red-600 text-white font-black rounded-xl hover:bg-red-700 transition-colors shadow-lg">BEENDEN</button>
+          <button
+            onClick={() => {
+              if (activeSessionRef.current) {
+                activeSessionRef.current.sendRealtimeInput([{ text: "SYSTEM: END_EXAM. Please output the final result strictly in this format: GRADE: x/10. FEEDBACK: [Short German feedback]." }]);
+              } else {
+                onComplete(0, "Session failed.");
+              }
+            }}
+            className="px-6 py-2 bg-red-600 text-white font-black rounded-xl hover:bg-red-700 transition-colors shadow-lg"
+          >
+            BEENDEN
+          </button>
         </div>
       </div>
     </div>

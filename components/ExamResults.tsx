@@ -5,8 +5,10 @@ interface ExamResultsProps {
     maxListening: number;
     readingScore: number;
     maxReading: number;
-    writingScore: number | null; // null if not graded
+    writingScore: number | null;
     writingFeedback: string | null;
+    speakingScore: number | null;
+    speakingFeedback: string | null;
     onHome: () => void;
 }
 
@@ -15,6 +17,7 @@ interface HistoryItem {
     listening: string;
     reading: string;
     writing: string;
+    speaking: string;
 }
 
 const ExamResults: React.FC<ExamResultsProps> = ({
@@ -24,6 +27,8 @@ const ExamResults: React.FC<ExamResultsProps> = ({
     maxReading,
     writingScore,
     writingFeedback,
+    speakingScore,
+    speakingFeedback,
     onHome
 }) => {
     const [history, setHistory] = useState<HistoryItem[]>([]);
@@ -34,7 +39,8 @@ const ExamResults: React.FC<ExamResultsProps> = ({
             date: new Date().toLocaleDateString('de-DE', { hour: '2-digit', minute: '2-digit' }),
             listening: `${listeningScore}/${maxListening}`,
             reading: `${readingScore}/${maxReading}`,
-            writing: writingScore !== null ? `${writingScore}/10` : 'N/A'
+            writing: writingScore !== null ? `${writingScore}/10` : 'N/A',
+            speaking: speakingScore !== null ? `${speakingScore}/10` : 'N/A'
         };
 
         const saved = localStorage.getItem('exam_history');
@@ -57,7 +63,7 @@ const ExamResults: React.FC<ExamResultsProps> = ({
 
     return (
         <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-6">
-            <div className="bg-white rounded-[2.5rem] shadow-2xl p-8 max-w-4xl w-full border-4 border-white animate-in zoom-in duration-500">
+            <div className="bg-white rounded-[2.5rem] shadow-2xl p-8 max-w-5xl w-full border-4 border-white animate-in zoom-in duration-500">
 
                 <div className="text-center mb-10">
                     <div className="inline-flex items-center justify-center w-20 h-20 bg-yellow-400 rounded-full shadow-lg mb-4 text-4xl">
@@ -67,7 +73,7 @@ const ExamResults: React.FC<ExamResultsProps> = ({
                     <p className="text-slate-500 font-medium">Hier sind deine Ergebnisse.</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
                     {/* Listening */}
                     <div className="bg-blue-50 rounded-3xl p-6 text-center border border-blue-100 transform transition hover:scale-105">
                         <div className="text-blue-500 text-3xl mb-3"><i className="fa-solid fa-headphones"></i></div>
@@ -103,16 +109,42 @@ const ExamResults: React.FC<ExamResultsProps> = ({
                             <div className="text-slate-400 italic py-4">Nicht bewertet</div>
                         )}
                     </div>
+
+                    {/* Speaking */}
+                    <div className="bg-orange-50 rounded-3xl p-6 text-center border border-orange-100 transform transition hover:scale-105">
+                        <div className="text-orange-500 text-3xl mb-3"><i className="fa-solid fa-comments"></i></div>
+                        <h3 className="text-orange-900 font-bold uppercase tracking-widest text-sm mb-1">Sprechen</h3>
+                        {speakingScore !== null ? (
+                            <>
+                                <div className="text-4xl font-black text-orange-600 mb-2">
+                                    {speakingScore} <span className="text-xl text-orange-300">/ 10</span>
+                                </div>
+                                <div className="text-2xl">{getEmoji(speakingScore, 10)}</div>
+                            </>
+                        ) : (
+                            <div className="text-slate-400 italic py-4">Nicht bewertet</div>
+                        )}
+                    </div>
                 </div>
 
-                {writingFeedback && (
-                    <div className="mb-10 bg-purple-50 p-6 rounded-3xl border border-purple-100">
-                        <h4 className="text-purple-900 font-bold mb-2 flex items-center gap-2">
-                            <i className="fa-solid fa-robot"></i> AI Feedback (Schreiben)
-                        </h4>
-                        <p className="text-purple-800 leading-relaxed italic">"{writingFeedback}"</p>
-                    </div>
-                )}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                    {writingFeedback && (
+                        <div className="bg-purple-50 p-6 rounded-3xl border border-purple-100">
+                            <h4 className="text-purple-900 font-bold mb-2 flex items-center gap-2">
+                                <i className="fa-solid fa-robot"></i> AI Feedback (Schreiben)
+                            </h4>
+                            <p className="text-purple-800 leading-relaxed italic text-sm">"{writingFeedback}"</p>
+                        </div>
+                    )}
+                    {speakingFeedback && (
+                        <div className="bg-orange-50 p-6 rounded-3xl border border-orange-100">
+                            <h4 className="text-orange-900 font-bold mb-2 flex items-center gap-2">
+                                <i className="fa-solid fa-robot"></i> AI Feedback (Sprechen)
+                            </h4>
+                            <p className="text-orange-800 leading-relaxed italic text-sm">"{speakingFeedback}"</p>
+                        </div>
+                    )}
+                </div>
 
                 {/* History Table */}
                 <div className="bg-slate-50 rounded-3xl p-6 mb-8">
@@ -125,6 +157,7 @@ const ExamResults: React.FC<ExamResultsProps> = ({
                                     <th className="pb-2">Hören</th>
                                     <th className="pb-2">Lesen</th>
                                     <th className="pb-2">Schreiben</th>
+                                    <th className="pb-2">Sprechen</th>
                                 </tr>
                             </thead>
                             <tbody className="text-slate-600 font-medium">
@@ -134,6 +167,7 @@ const ExamResults: React.FC<ExamResultsProps> = ({
                                         <td className="py-3">{h.listening}</td>
                                         <td className="py-3">{h.reading}</td>
                                         <td className="py-3">{h.writing}</td>
+                                        <td className="py-3">{h.speaking}</td>
                                     </tr>
                                 ))}
                             </tbody>
