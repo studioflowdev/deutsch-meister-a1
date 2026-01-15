@@ -306,7 +306,7 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
                           ))}
                         </ul>
                         <div className="mt-4 pt-2 border-t border-slate-100 text-center">
-                          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">A1 - Start Deutsch 1</span>
+                          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Deutsch-Prüfung A1</span>
                         </div>
                       </div>
                     ) : (
@@ -361,12 +361,10 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
                                   )}
                                 </div>
 
-                                {/* Footer - SCRUBBED for Part 3 */}
-                                {currentPart.id !== 3 && (
-                                  <div className="bg-white px-2 py-1 border-t border-slate-100 flex justify-center">
-                                    <span className="text-[7px] font-bold text-slate-300 uppercase">Goethe-Institut</span>
-                                  </div>
-                                )}
+                                {/* Footer - Generic for ALL parts */}
+                                <div className="bg-white px-2 py-1 border-t border-slate-100 flex justify-center">
+                                  <span className="text-[7px] font-bold text-slate-300 uppercase">Deutsch-Prüfung A1</span>
+                                </div>
                               </div>
                             </div>
                           </div>

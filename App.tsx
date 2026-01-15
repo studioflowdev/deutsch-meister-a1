@@ -287,6 +287,23 @@ const App: React.FC = () => {
                       <button key={opt} onClick={() => handleAnswer(q.id, opt)} className={`flex-1 py-3 px-5 rounded-xl border-2 font-bold transition-all text-sm ${exam.answers[q.id] === opt ? 'bg-blue-600 border-blue-600 text-white shadow-md' : 'bg-slate-50 border-slate-100 text-slate-600 hover:border-slate-300'}`}>{opt}</button>
                     ))}
                   </div>
+
+                  {exam.guidanceEnabled && (
+                    <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-xl animate-in slide-in-from-top-2">
+                      <div className="flex items-start gap-3">
+                        <i className="fa-solid fa-lightbulb text-yellow-500 mt-1"></i>
+                        <div>
+                          <p className="text-xs font-bold text-yellow-600 uppercase tracking-wider mb-1">LÖSUNGSHILFE</p>
+                          <p className="text-slate-700 font-medium">
+                            Die richtige Antwort ist: <span className="font-bold text-blue-600">{q.answer}</span>
+                          </p>
+                          <p className="text-xs text-slate-500 mt-1 italic">
+                            {q.part === 1 ? 'Achten Sie auf Sender und Empfänger.' : q.part === 2 ? 'Suchen Sie nach Schlüsselwörtern wie Datum, Zeit oder Ort.' : 'Achten Sie auf Verbote (rot) und Informationen (blau).'}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -348,6 +365,22 @@ const App: React.FC = () => {
                     </div>
                   ))}
                 </div>
+
+                {exam.guidanceEnabled && (
+                  <div className="mt-8 pt-6 border-t border-stone-200">
+                    <div className="bg-yellow-50/80 p-4 border-l-4 border-yellow-400 rounded-r-lg">
+                      <h4 className="text-xs font-black text-yellow-700 uppercase tracking-widest mb-3 flex items-center gap-2"><i className="fa-solid fa-key"></i> Lösungsschlüssel</h4>
+                      <div className="grid grid-cols-2 gap-4">
+                        {sessionContent.schreibenForm.solutions.map((sol: string, i: number) => (
+                          <div key={i} className="text-sm">
+                            <span className="font-bold text-stone-500 mr-2">{11 + i}:</span>
+                            <span className="font-['Patrick_Hand'] text-blue-600 text-lg">{sol}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="bg-stone-100 p-2 text-center text-[10px] text-stone-400 font-mono border-t border-stone-200 uppercase">
                 Seite 1 von 1 • Goethe-Zertifikat A1 Modellsatz
@@ -358,6 +391,38 @@ const App: React.FC = () => {
             <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-200 mt-12">
               <h3 className="font-bold text-lg mb-4 text-blue-600 uppercase tracking-wider flex items-center gap-2"><i className="fa-solid fa-envelope"></i>Aufgabe 2: E-Mail</h3>
               <p className="text-xl font-bold text-slate-800 leading-snug mb-8">{sessionContent.schreibenLetter.prompt}</p>
+
+              {exam.guidanceEnabled && (
+                <div className="mb-6 bg-blue-50 p-6 rounded-2xl border border-blue-100">
+                  <h4 className="text-xs font-black text-blue-600 uppercase tracking-widest mb-4">Redemittel (Writing Template)</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-700">
+                    <div>
+                      <strong className="block text-blue-800 mb-1">Anrede</strong>
+                      <ul className="list-disc list-inside space-y-1">
+                        <li>Liebe Martina...</li>
+                        <li>Lieber Hans...</li>
+                        <li>Sehr geehrte Damen und Herren...</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <strong className="block text-blue-800 mb-1">Inhalt</strong>
+                      <ul className="list-disc list-inside space-y-1">
+                        <li>Ich möchte...</li>
+                        <li>Können wir...</li>
+                        <li>Ich komme am...</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <strong className="block text-blue-800 mb-1">Schluss</strong>
+                      <ul className="list-disc list-inside space-y-1">
+                        <li>Viele Grüße</li>
+                        <li>Bis bald</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <textarea rows={12} className="w-full px-8 py-6 rounded-2xl bg-slate-50 border border-slate-200 focus:ring-4 focus:ring-blue-100 outline-none resize-none text-xl leading-relaxed mb-6 font-['Patrick_Hand'] text-slate-700" onChange={(e) => handleAnswer('email_text', e.target.value)} placeholder="Schreiben Sie hier Ihre E-Mail..." value={exam.answers['email_text'] || ''} />
               <button onClick={handleGradeWriting} disabled={isGrading} className="w-full md:w-auto px-10 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-2xl shadow-xl transition-all active:scale-95 disabled:opacity-50">{isGrading ? 'Prüfer bewertet...' : 'Abgeben & Bewerten'}</button>
               {gradingResult && (
