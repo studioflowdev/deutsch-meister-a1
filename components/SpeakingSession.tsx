@@ -165,7 +165,7 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
       ${virtualPartnerEnabled ? '- As Partner: Simple A1-level German, friendly student. (Teil 2 & 3 interactions)' : ''}
 
       STRUCTURE:
-      1. Teil 1 (Introduction): ALWAYS act as the EXAMINER. Do NOT act as a partner here. Ask the student to introduce themselves. Listen to their full introduction. Then ask 1-2 standard follow-up questions (e.g. "Buchstabieren Sie bitte Ihren Familiennamen" or "Wie ist Ihre Handynummer?").
+      1. Teil 1 (Introduction): ALWAYS act as the EXAMINER. Ask the student to introduce themselves ("Stellen Sie sich bitte vor"). Listen to their introduction. THEN, as per official exam rules, ask 1-2 brief follow-up questions to test spelling or numbers (e.g., "Können Sie bitte Ihren Nachnamen buchstabieren?" or "Wie ist Ihre Handynummer?"). Wait for the answer, say "Danke", provide a brief grade (x/10), and proceed to Teil 2.
       2. Teil 2 (Theme Cards):
          - Wait for the student to ask a question based on their card.
          ${virtualPartnerEnabled
