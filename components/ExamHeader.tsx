@@ -11,13 +11,13 @@ interface ExamHeaderProps {
   onToggleGuidance: () => void;
 }
 
-const ExamHeader: React.FC<ExamHeaderProps> = ({ 
-  currentSection, 
-  onExit, 
+const ExamHeader: React.FC<ExamHeaderProps> = ({
+  currentSection,
+  onExit,
   onNavigate,
-  timer, 
-  guidanceEnabled, 
-  onToggleGuidance 
+  timer,
+  guidanceEnabled,
+  onToggleGuidance
 }) => {
   const sections = [
     { key: ExamSection.HOEREN, label: 'Hören', icon: 'fa-headphones' },
@@ -48,22 +48,21 @@ const ExamHeader: React.FC<ExamHeaderProps> = ({
           </div>
         </div>
 
-        <nav className="flex items-center space-x-1 sm:space-x-3">
+        <nav className="flex-1 flex items-center justify-center space-x-1 sm:space-x-3 overflow-x-auto no-scrollbar">
           {sections.map((s) => (
-            <button 
-              key={s.key} 
+            <button
+              key={s.key}
               disabled={!isNavigationAllowed}
               onClick={() => onNavigate(s.key)}
-              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all ${
-                currentSection === s.key 
-                  ? 'bg-blue-600 text-white shadow-md' 
-                  : isNavigationAllowed 
-                    ? 'text-slate-400 hover:bg-slate-50 hover:text-slate-600' 
+              className={`flex-shrink-0 flex items-center space-x-1.5 px-2 sm:px-3 py-1.5 rounded-lg text-sm font-semibold transition-all ${currentSection === s.key
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : isNavigationAllowed
+                    ? 'text-slate-400 hover:bg-slate-50 hover:text-slate-600'
                     : 'text-slate-200 cursor-not-allowed'
-              }`}
+                }`}
             >
               <i className={`fa-solid ${s.icon}`}></i>
-              <span className="hidden lg:inline">{s.label}</span>
+              <span className="hidden md:inline">{s.label}</span>
             </button>
           ))}
         </nav>
@@ -75,15 +74,14 @@ const ExamHeader: React.FC<ExamHeaderProps> = ({
               <span>{formatTime(timer)}</span>
             </div>
           )}
-          
+
           {isNavigationAllowed && (
-            <button 
+            <button
               onClick={onToggleGuidance}
-              className={`flex items-center space-x-2 px-3 py-1.5 rounded-lg text-sm font-bold transition-all ${
-                guidanceEnabled 
-                  ? 'bg-yellow-100 text-yellow-700' 
+              className={`flex items-center space-x-2 px-3 py-1.5 rounded-lg text-sm font-bold transition-all ${guidanceEnabled
+                  ? 'bg-yellow-100 text-yellow-700'
                   : 'bg-slate-100 text-slate-400 hover:text-slate-600'
-              }`}
+                }`}
             >
               <i className="fa-solid fa-lightbulb"></i>
               <span className="hidden sm:inline">Hilfe</span>
