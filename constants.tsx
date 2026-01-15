@@ -936,65 +936,73 @@ export const SCHREIBEN_LETTER_POOL = [
 ];
 
 export const SPEAKING_WORD_CARDS: CardData[] = [
-  // Existing
-  { id: 'sw1', type: 'word', content: 'Auto', topic: 'Verkehr', icon: 'fa-car', imageUrl: '', exampleQuestion: 'Haben Sie ein Auto?', exampleAnswer: 'Ja, ich habe ein kleines Auto.' },
-  { id: 'sw2', type: 'word', content: 'Brot', topic: 'Essen & Trinken', icon: 'fa-bread-slice', imageUrl: '', exampleQuestion: 'Essen Sie gern Brot?', exampleAnswer: 'Ja, ich esse jeden Morgen Brot.' },
-  { id: 'sw3', type: 'word', content: 'Kaffee', topic: 'Essen & Trinken', icon: 'fa-coffee', imageUrl: '', exampleQuestion: 'Trinken Sie gern Kaffee?', exampleAnswer: 'Nein, ich trinke lieber Tee.' },
-  { id: 'sw4', type: 'word', content: 'Wochenende', topic: 'Freizeit', icon: 'fa-calendar-days', imageUrl: '', exampleQuestion: 'Was machen Sie am Wochenende?', exampleAnswer: 'Am Wochenende gehe ich ins Kino.' },
-  { id: 'sw5', type: 'word', content: 'Zeitung', topic: 'Medien', icon: 'fa-newspaper', imageUrl: '', exampleQuestion: 'Lesen Sie jeden Tag die Zeitung?', exampleAnswer: 'Ja, beim Frühstück.' },
-  { id: 'sw6', type: 'word', content: 'Fahrrad', topic: 'Verkehr', icon: 'fa-bicycle', imageUrl: '', exampleQuestion: 'Fahren Sie gern Fahrrad?', exampleAnswer: 'Ja, das macht Spaß.' },
-  { id: 'sw7', type: 'word', content: 'Wohnung', topic: 'Wohnen', icon: 'fa-house', imageUrl: '', exampleQuestion: 'Wie groß ist Ihre Wohnung?', exampleAnswer: 'Meine Wohnung hat drei Zimmer.' },
-  { id: 'sw8', type: 'word', content: 'Beruf', topic: 'Arbeit', icon: 'fa-briefcase', imageUrl: '', exampleQuestion: 'Was sind Sie von Beruf?', exampleAnswer: 'Ich bin Ingenieur.' },
+  // Thema: Familie
+  { id: 'sw_fam1', type: 'word', content: 'Sonntag', topic: 'Familie', icon: 'fa-calendar-day', imageUrl: '', exampleQuestion: 'Was machen Sie am Sonntag mit der Familie?', exampleAnswer: 'Wir gehen spazieren.' },
+  { id: 'sw_fam2', type: 'word', content: 'Eltern', topic: 'Familie', icon: 'fa-user-group', imageUrl: '', exampleQuestion: 'Wo wohnen Ihre Eltern?', exampleAnswer: 'Sie wohnen in Berlin.' },
+  { id: 'sw_fam3', type: 'word', content: 'Wohnung', topic: 'Familie', icon: 'fa-house', imageUrl: '', exampleQuestion: 'Ist Ihre Wohnung groß?', exampleAnswer: 'Ja, sie hat 4 Zimmer.' },
+  { id: 'sw_fam4', type: 'word', content: 'Stadt', topic: 'Familie', icon: 'fa-city', imageUrl: '', exampleQuestion: 'Wohnt Ihre Familie in der Stadt?', exampleAnswer: 'Nein, auf dem Land.' },
+  { id: 'sw_fam5', type: 'word', content: 'Kinder', topic: 'Familie', icon: 'fa-child', imageUrl: '', exampleQuestion: 'Haben Sie Kinder?', exampleAnswer: 'Ja, zwei.' },
+  { id: 'sw_fam6', type: 'word', content: 'Urlaub', topic: 'Familie', icon: 'fa-plane', imageUrl: '', exampleQuestion: 'Machen Sie Urlaub mit der Familie?', exampleAnswer: 'Ja, wir fahren ans Meer.' },
 
-  // New Additions
-  { id: 'sw9', type: 'word', content: 'Urlaub', topic: 'Reisen', icon: 'fa-plane', imageUrl: '', exampleQuestion: 'Wann machen Sie Urlaub?', exampleAnswer: 'Im Sommer fahre ich nach Spanien.' },
-  { id: 'sw10', type: 'word', content: 'Sport', topic: 'Freizeit', icon: 'fa-futbol', imageUrl: '', exampleQuestion: 'Treiben Sie Sport?', exampleAnswer: 'Ja, ich spiele Fußball.' },
-  { id: 'sw11', type: 'word', content: 'Familie', topic: 'Persönliches', icon: 'fa-users', imageUrl: '', exampleQuestion: 'Ist Ihre Familie groß?', exampleAnswer: 'Nein, ich habe nur einen Bruder.' },
-  { id: 'sw12', type: 'word', content: 'Sprache', topic: 'Lernen', icon: 'fa-language', imageUrl: '', exampleQuestion: 'Welche Sprachen sprechen Sie?', exampleAnswer: 'Ich spreche Englisch und ein bisschen Deutsch.' },
-  { id: 'sw13', type: 'word', content: 'Obst', topic: 'Essen & Trinken', icon: 'fa-apple-whole', imageUrl: '', exampleQuestion: 'Essen Sie gern Obst?', exampleAnswer: 'Ja, Äpfel und Bananen.' },
-  { id: 'sw14', type: 'word', content: 'Arzt', topic: 'Gesundheit', icon: 'fa-user-doctor', imageUrl: '', exampleQuestion: 'Wann gehen Sie zum Arzt?', exampleAnswer: 'Wenn ich krank bin.' },
-  { id: 'sw15', type: 'word', content: 'Computer', topic: 'Arbeit', icon: 'fa-computer', imageUrl: '', exampleQuestion: 'Haben Sie einen Computer?', exampleAnswer: 'Ja, ich brauche ihn für die Arbeit.' },
-  { id: 'sw16', type: 'word', content: 'Lust', topic: 'Freizeit', icon: 'fa-face-smile', imageUrl: '', exampleQuestion: 'Haben Sie Lust auf Kino?', exampleAnswer: 'Ja, sehr gerne.' },
-  { id: 'sw17', type: 'word', content: 'Preis', topic: 'Einkaufen', icon: 'fa-tag', imageUrl: '', exampleQuestion: 'Ist der Preis gut?', exampleAnswer: 'Ja, das ist sehr billig.' },
-  { id: 'sw18', type: 'word', content: 'Stadt', topic: 'Wohnen', icon: 'fa-city', imageUrl: '', exampleQuestion: 'Wohnen Sie in der Stadt?', exampleAnswer: 'Nein, ich wohne auf dem Land.' },
-  { id: 'sw19', type: 'word', content: 'Freunde', topic: 'Soziales', icon: 'fa-user-group', imageUrl: '', exampleQuestion: 'Treffen Sie oft Freunde?', exampleAnswer: 'Ja, am Wochenende.' },
-  { id: 'sw20', type: 'word', content: 'Garten', topic: 'Wohnen', icon: 'fa-seedling', imageUrl: '', exampleQuestion: 'Haben Sie einen Garten?', exampleAnswer: 'Ja, einen kleinen Garten.' },
-  // --- Extracted from PDF Analysis ---
-  { id: 'sw21', type: 'word', content: 'Frühstück', topic: 'Essen & Trinken', icon: 'fa-mug-hot', imageUrl: '', exampleQuestion: 'Was essen Sie zum Frühstück?', exampleAnswer: 'Brötchen mit Marmelade.' },
-  { id: 'sw22', type: 'word', content: 'Lieblingsessen', topic: 'Essen & Trinken', icon: 'fa-utensils', imageUrl: '', exampleQuestion: 'Was ist Ihr Lieblingsessen?', exampleAnswer: 'Pizza ist mein Lieblingsessen.' },
-  { id: 'sw23', type: 'word', content: 'Fleisch', topic: 'Essen & Trinken', icon: 'fa-drumstick-bite', imageUrl: '', exampleQuestion: 'Essen Sie oft Fleisch?', exampleAnswer: 'Nein, ich bin Vegetarier.' },
-  { id: 'sw24', type: 'word', content: 'Arbeitszeit', topic: 'Beruf', icon: 'fa-clock', imageUrl: '', exampleQuestion: 'Wie sind Ihre Arbeitszeiten?', exampleAnswer: 'Von 8 bis 17 Uhr.' },
-  { id: 'sw25', type: 'word', content: 'Kollegen', topic: 'Beruf', icon: 'fa-users', imageUrl: '', exampleQuestion: 'Sind Ihre Kollegen nett?', exampleAnswer: 'Ja, wir verstehen uns gut.' },
-  { id: 'sw26', type: 'word', content: 'Spaß', topic: 'Beruf', icon: 'fa-face-smile', imageUrl: '', exampleQuestion: 'Macht Ihnen die Arbeit Spaß?', exampleAnswer: 'Ja, sehr viel Spaß.' },
-  { id: 'sw27', type: 'word', content: 'Schwimmen', topic: 'Sport', icon: 'fa-person-swimming', imageUrl: '', exampleQuestion: 'Gehen Sie gern schwimmen?', exampleAnswer: 'Im Sommer ja.' },
-  { id: 'sw28', type: 'word', content: 'Ball', topic: 'Sport', icon: 'fa-baseball', imageUrl: '', exampleQuestion: 'Haben Sie einen Ball?', exampleAnswer: 'Ja, einen Fußball.' }
+  // Thema: Verkehr
+  { id: 'sw_verk1', type: 'word', content: 'Fahrkarte', topic: 'Verkehr', icon: 'fa-ticket', imageUrl: '', exampleQuestion: 'Was kostet eine Fahrkarte?', exampleAnswer: '2 Euro 50.' },
+  { id: 'sw_verk2', type: 'word', content: 'Bahnhof', topic: 'Verkehr', icon: 'fa-train-subway', imageUrl: '', exampleQuestion: 'Wo ist der Bahnhof?', exampleAnswer: 'Geradeaus und dann links.' },
+  { id: 'sw_verk3', type: 'word', content: 'Fahrrad', topic: 'Verkehr', icon: 'fa-bicycle', imageUrl: '', exampleQuestion: 'Fahren Sie oft Fahrrad?', exampleAnswer: 'Ja, jeden Tag zur Arbeit.' },
+  { id: 'sw_verk4', type: 'word', content: 'Flughafen', topic: 'Verkehr', icon: 'fa-plane-departure', imageUrl: '', exampleQuestion: 'Wie komme ich zum Flughafen?', exampleAnswer: 'Nehmen Sie die S-Bahn.' },
+  { id: 'sw_verk5', type: 'word', content: 'Taxi', topic: 'Verkehr', icon: 'fa-taxi', imageUrl: '', exampleQuestion: 'Nehmen Sie oft ein Taxi?', exampleAnswer: 'Nein, das ist zu teuer.' },
+  { id: 'sw_verk6', type: 'word', content: 'Bahn', topic: 'Verkehr', icon: 'fa-train', imageUrl: '', exampleQuestion: 'Fahren Sie mit der Bahn?', exampleAnswer: 'Ja, ich fahre gerne Zug.' },
+
+  // Thema: Einkaufen
+  { id: 'sw_eink1', type: 'word', content: 'Zeitung', topic: 'Einkaufen', icon: 'fa-newspaper', imageUrl: '', exampleQuestion: 'Kaufen Sie eine Zeitung?', exampleAnswer: 'Ja, jeden Morgen.' },
+  { id: 'sw_eink2', type: 'word', content: 'Kasse', topic: 'Einkaufen', icon: 'fa-cash-register', imageUrl: '', exampleQuestion: 'Wo ist die Kasse?', exampleAnswer: 'Dort vorne am Ausgang.' },
+  { id: 'sw_eink3', type: 'word', content: 'Buch', topic: 'Einkaufen', icon: 'fa-book', imageUrl: '', exampleQuestion: 'Kaufen Sie gern Bücher?', exampleAnswer: 'Ja, ich lese sehr viel.' },
+  { id: 'sw_eink4', type: 'word', content: 'Obst', topic: 'Einkaufen', icon: 'fa-apple-whole', imageUrl: '', exampleQuestion: 'Kaufen Sie oft Obst?', exampleAnswer: 'Ja, Äpfel und Bananen.' },
+  { id: 'sw_eink5', type: 'word', content: 'Schuhe', topic: 'Einkaufen', icon: 'fa-shoe-prints', imageUrl: '', exampleQuestion: 'Wo kann man Schuhe kaufen?', exampleAnswer: 'Im Schuhgeschäft im Zentrum.' },
+  { id: 'sw_eink6', type: 'word', content: 'Stadtplan', topic: 'Einkaufen', icon: 'fa-map', imageUrl: '', exampleQuestion: 'Haben Sie einen Stadtplan?', exampleAnswer: 'Ja, den kaufe ich am Kiosk.' },
+
+  // Thema: Sport
+  { id: 'sw_spo1', type: 'word', content: 'Lieblingssport', topic: 'Sport', icon: 'fa-heart', imageUrl: '', exampleQuestion: 'Was ist Ihr Lieblingssport?', exampleAnswer: 'Ich spiele gern Tennis.' },
+  { id: 'sw_spo2', type: 'word', content: 'Schwimmen', topic: 'Sport', icon: 'fa-person-swimming', imageUrl: '', exampleQuestion: 'Gehen Sie gern schwimmen?', exampleAnswer: 'Ja, im Sommer.' },
+  { id: 'sw_spo3', type: 'word', content: 'Ball', topic: 'Sport', icon: 'fa-basketball', imageUrl: '', exampleQuestion: 'Spielen Sie oft Ball?', exampleAnswer: 'Ja, mit meinen Kindern.' },
+  { id: 'sw_spo4', type: 'word', content: 'Fahrrad', topic: 'Sport', icon: 'fa-bicycle', imageUrl: '', exampleQuestion: 'Ist Fahrradfahren Sport für Sie?', exampleAnswer: 'Ja, das macht fit.' },
+
+  // Thema: Essen und Trinken
+  { id: 'sw_essen1', type: 'word', content: 'Sonntag', topic: 'Essen & Trinken', icon: 'fa-calendar-days', imageUrl: '', exampleQuestion: 'Was essen Sie am Sonntag?', exampleAnswer: 'Einen großen Braten.' },
+  { id: 'sw_essen2', type: 'word', content: 'Frühstück', topic: 'Essen & Trinken', icon: 'fa-mug-hot', imageUrl: '', exampleQuestion: 'Wann frühstücken Sie?', exampleAnswer: 'Um 8 Uhr.' },
+  { id: 'sw_essen3', type: 'word', content: 'Lieblingsessen', topic: 'Essen & Trinken', icon: 'fa-utensils', imageUrl: '', exampleQuestion: 'Was ist Ihr Lieblingsessen?', exampleAnswer: 'Pizza' },
+  { id: 'sw_essen4', type: 'word', content: 'Bier', topic: 'Essen & Trinken', icon: 'fa-beer-mug-empty', imageUrl: '', exampleQuestion: 'Trinken Sie Bier?', exampleAnswer: 'Ja, gern zum Abendessen.' },
+  { id: 'sw_essen5', type: 'word', content: 'Fleisch', topic: 'Essen & Trinken', icon: 'fa-drumstick-bite', imageUrl: '', exampleQuestion: 'Essen Sie Fleisch?', exampleAnswer: 'Nein, ich bin Vegetarier.' },
+  { id: 'sw_essen6', type: 'word', content: 'Brot', topic: 'Essen & Trinken', icon: 'fa-bread-slice', imageUrl: '', exampleQuestion: 'Essen Sie gern Brot?', exampleAnswer: 'Ja, deutsches Brot schmeckt gut.' },
 ];
 
 export const SPEAKING_PICTURE_CARDS: CardData[] = [
-  // Existing
-  { id: 'sp1', type: 'picture', content: 'Fenster aufmachen', icon: 'fa-window-maximize', imageUrl: '', exampleQuestion: 'Können Sie bitte das Fenster aufmachen?', exampleAnswer: 'Ja, sofort.' },
-  { id: 'sp2', type: 'picture', content: 'Stift leihen', icon: 'fa-pen', imageUrl: '', exampleQuestion: 'Kannst du mir einen Stift leihen?', exampleAnswer: 'Ja, hier ist einer.' },
-  { id: 'sp3', type: 'picture', content: 'Tür zumachen', icon: 'fa-door-closed', imageUrl: '', exampleQuestion: 'Machen Sie bitte die Tür zu.', exampleAnswer: 'Klar, mache ich.' },
-  { id: 'sp4', type: 'picture', content: 'Rauchen verboten', icon: 'fa-ban-smoking', imageUrl: '', exampleQuestion: 'Darf man hier rauchen?', exampleAnswer: 'Nein, hier ist Rauchverbot.' },
-  { id: 'sp5', type: 'picture', content: 'Rechnung bezahlen', icon: 'fa-file-invoice-dollar', imageUrl: '', exampleQuestion: 'Kann ich bitte die Rechnung haben?', exampleAnswer: 'Gerne, das macht 20 Euro.' },
-  { id: 'sp6', type: 'picture', content: 'Milch kaufen', icon: 'fa-bottle-water', imageUrl: '', exampleQuestion: 'Kaufst du bitte eine Flasche Milch?', exampleAnswer: 'Ja, mache ich.' },
-  { id: 'sp7', type: 'picture', content: 'Buch lesen', icon: 'fa-book', imageUrl: '', exampleQuestion: 'Lies mir bitte das Buch vor.', exampleAnswer: 'Ja, gerne.' },
-  { id: 'sp8', type: 'picture', content: 'Kaffee trinken', icon: 'fa-mug-hot', imageUrl: '', exampleQuestion: 'Möchten Sie eine Tasse Kaffee?', exampleAnswer: 'Ja, bitte mit Milch.' },
-
-  // New Additions
-  { id: 'sp9', type: 'picture', content: 'Ruhe bitte', icon: 'fa-volume-xmark', imageUrl: '', exampleQuestion: 'Seien Sie bitte leise.', exampleAnswer: 'Entschuldigung, ich bin jetzt still.' },
-  { id: 'sp10', type: 'picture', content: 'Telefonieren', icon: 'fa-phone', imageUrl: '', exampleQuestion: 'Kann ich mal telefonieren?', exampleAnswer: 'Ja, mein Handy liegt auf dem Tisch.' },
-  { id: 'sp11', type: 'picture', content: 'Platz nehmen', icon: 'fa-chair', imageUrl: '', exampleQuestion: 'Nehmen Sie bitte Platz.', exampleAnswer: 'Danke schön.' },
-  { id: 'sp12', type: 'picture', content: 'Unterschreiben', icon: 'fa-signature', imageUrl: '', exampleQuestion: 'Unterschreiben Sie hier bitte.', exampleAnswer: 'Wo soll ich unterschreiben?' },
-  { id: 'sp13', type: 'picture', content: 'Taxi rufen', icon: 'fa-taxi', imageUrl: '', exampleQuestion: 'Können Sie mir ein Taxi rufen?', exampleAnswer: 'Ja, es kommt in 5 Minuten.' },
-  { id: 'sp14', type: 'picture', content: 'Uhrzeit sagen', icon: 'fa-clock', imageUrl: '', exampleQuestion: 'Wie viel Uhr ist es?', exampleAnswer: 'Es ist halb drei.' },
-  { id: 'sp15', type: 'picture', content: 'Wasser geben', icon: 'fa-glass-water', imageUrl: '', exampleQuestion: 'Kann ich bitte ein Glas Wasser haben?', exampleAnswer: 'Ja, natürlich, hier bitte.' },
-  { id: 'sp16', type: 'picture', content: 'Tasche tragen', icon: 'fa-bag-shopping', imageUrl: '', exampleQuestion: 'Können Sie mir mit der Tasche helfen?', exampleAnswer: 'Ja, sie ist sehr schwer.' },
-
-  // --- Extracted from PDF Analysis ---
-  { id: 'sp17', type: 'picture', content: 'CD', icon: 'fa-compact-disc', imageUrl: '', exampleQuestion: 'Haben Sie eine CD?', exampleAnswer: 'Ja, Musik von Mozart.' },
-  { id: 'sp18', type: 'picture', content: 'Stuhl', icon: 'fa-chair', imageUrl: '', exampleQuestion: 'Ist der Stuhl frei?', exampleAnswer: 'Ja, bitte setzen Sie sich.' },
-  { id: 'sp19', type: 'picture', content: 'Apfel', icon: 'fa-apple-whole', imageUrl: '', exampleQuestion: 'Möchten Sie einen Apfel?', exampleAnswer: 'Ja, gern.' },
-  { id: 'sp20', type: 'picture', content: 'Koffer', icon: 'fa-suitcase', imageUrl: '', exampleQuestion: 'Ist das Ihr Koffer?', exampleAnswer: 'Nein, meiner ist rot.' },
-  { id: 'sp21', type: 'picture', content: 'Radio', icon: 'fa-radio', imageUrl: '', exampleQuestion: 'Kann ich das Radio anmachen?', exampleAnswer: 'Bitte nicht, ich lerne.' }
+  // --- Transcribed from User Images ---
+  { id: 'sp_new1', type: 'picture', content: 'Tasche', icon: 'fa-briefcase', imageUrl: '', exampleQuestion: 'Ist das Ihre Tasche?', exampleAnswer: 'Ja, danke.' },
+  { id: 'sp_new2', type: 'picture', content: 'CD', icon: 'fa-compact-disc', imageUrl: '', exampleQuestion: 'Kannst du mir die CD leihen?', exampleAnswer: 'Ja, gerne.' },
+  { id: 'sp_new3', type: 'picture', content: 'Rauchen verboten', icon: 'fa-ban-smoking', imageUrl: '', exampleQuestion: 'Darf man hier rauchen?', exampleAnswer: 'Nein, das ist verboten.' },
+  { id: 'sp_new4', type: 'picture', content: 'Zeitung', icon: 'fa-newspaper', imageUrl: '', exampleQuestion: 'Geben Sie mir bitte die Zeitung.', exampleAnswer: 'Hier bitte.' },
+  { id: 'sp_new5', type: 'picture', content: 'Schlüssel', icon: 'fa-key', imageUrl: '', exampleQuestion: 'Geben Sie mir bitte den Schlüssel.', exampleAnswer: 'Einen Moment, hier ist er.' },
+  { id: 'sp_new6', type: 'picture', content: 'Apfel', icon: 'fa-apple-whole', imageUrl: '', exampleQuestion: 'Möchten Sie einen Apfel?', exampleAnswer: 'Ja, sehr gern.' },
+  { id: 'sp_new7', type: 'picture', content: 'Auto', icon: 'fa-car', imageUrl: '', exampleQuestion: 'Fahren Sie mit dem Auto?', exampleAnswer: 'Ja, zur Arbeit.' },
+  { id: 'sp_new8', type: 'picture', content: 'Briefmarke', icon: 'fa-mail-bulk', imageUrl: '', exampleQuestion: 'Haben Sie eine Briefmarke?', exampleAnswer: 'Nein, tut mir leid.' },
+  { id: 'sp_new9', type: 'picture', content: 'Fahrkarte', icon: 'fa-ticket', imageUrl: '', exampleQuestion: 'Haben Sie eine Fahrkarte?', exampleAnswer: 'Ja, natürlich.' },
+  { id: 'sp_new10', type: 'picture', content: 'Buch', icon: 'fa-book', imageUrl: '', exampleQuestion: 'Geben Sie mir bitte das Buch.', exampleAnswer: 'Hier bitte.' },
+  { id: 'sp_new11', type: 'picture', content: 'Stift', icon: 'fa-pen', imageUrl: '', exampleQuestion: 'Haben Sie einen Stift für mich?', exampleAnswer: 'Ja, nehmen Sie diesen.' },
+  { id: 'sp_new12', type: 'picture', content: 'Glas Wasser', icon: 'fa-glass-water', imageUrl: '', exampleQuestion: 'Kann ich bitte ein Glas Wasser haben?', exampleAnswer: 'Ja, sofort.' },
+  { id: 'sp_new13', type: 'picture', content: 'Tür', icon: 'fa-door-open', imageUrl: '', exampleQuestion: 'Machen Sie bitte die Tür zu.', exampleAnswer: 'Ja, es ist kalt.' },
+  { id: 'sp_new14', type: 'picture', content: 'Jacke', icon: 'fa-shirt', imageUrl: '', exampleQuestion: 'Ist das Ihre Jacke?', exampleAnswer: 'Ja, danke.' },
+  { id: 'sp_new15', type: 'picture', content: 'Besteck', icon: 'fa-utensils', imageUrl: '', exampleQuestion: 'Fehlt Ihnen Besteck?', exampleAnswer: 'Ja, ich brauche eine Gabel.' },
+  { id: 'sp_new16', type: 'picture', content: 'Ausweis', icon: 'fa-id-card', imageUrl: '', exampleQuestion: 'Zeigen Sie mir bitte Ihren Ausweis.', exampleAnswer: 'Hier ist er.' },
+  { id: 'sp_new17', type: 'picture', content: 'Flasche', icon: 'fa-bottle-water', imageUrl: '', exampleQuestion: 'Möchtest du die Flasche?', exampleAnswer: 'Ja, ich habe Durst.' },
+  { id: 'sp_new18', type: 'picture', content: 'Brot', icon: 'fa-bread-slice', imageUrl: '', exampleQuestion: 'Kann ich noch Brot haben?', exampleAnswer: 'Ja, bedienen Sie sich.' },
+  { id: 'sp_new19', type: 'picture', content: 'Kamera', icon: 'fa-camera', imageUrl: '', exampleQuestion: 'Machen Sie bitte ein Foto.', exampleAnswer: 'Gerne, stellen Sie sich dorthin.' },
+  { id: 'sp_new20', type: 'picture', content: 'Geld', icon: 'fa-coins', imageUrl: '', exampleQuestion: 'Können Sie mir Geld wechseln?', exampleAnswer: 'Ja, ich habe Kleingeld.' },
+  { id: 'sp_new21', type: 'picture', content: 'Kreditkarte', icon: 'fa-credit-card', imageUrl: '', exampleQuestion: 'Kann ich mit Karte bezahlen?', exampleAnswer: 'Ja, natürlich.' },
+  { id: 'sp_new22', type: 'picture', content: 'Blumen', icon: 'fa-fan', imageUrl: '', exampleQuestion: 'Vielen Dank für die Blumen.', exampleAnswer: 'Bitte sehr.' },
+  { id: 'sp_new23', type: 'picture', content: 'Koffer', icon: 'fa-suitcase', imageUrl: '', exampleQuestion: 'Ist der Koffer schwer?', exampleAnswer: 'Ja, sehr schwer.' },
+  { id: 'sp_new24', type: 'picture', content: 'Radio', icon: 'fa-radio', imageUrl: '', exampleQuestion: 'Machen Sie bitte das Radio aus.', exampleAnswer: 'Okay, ich mache es aus.' },
+  { id: 'sp_new25', type: 'picture', content: 'Stuhl', icon: 'fa-chair', imageUrl: '', exampleQuestion: 'Ist hier noch frei?', exampleAnswer: 'Ja, bitte setzen Sie sich.' },
+  { id: 'sp_new26', type: 'picture', content: 'Uhr', icon: 'fa-clock', imageUrl: '', exampleQuestion: 'Wie viel Uhr ist es?', exampleAnswer: 'Es ist 14 Uhr.' },
+  { id: 'sp_new27', type: 'picture', content: 'Taxi', icon: 'fa-taxi', imageUrl: '', exampleQuestion: 'Rufen Sie mir bitte ein Taxi.', exampleAnswer: 'Wohin wollen Sie fahren?' },
+  { id: 'sp_new28', type: 'picture', content: 'Rechnung', icon: 'fa-file-invoice', imageUrl: '', exampleQuestion: 'Die Rechnung bitte.', exampleAnswer: 'Kommt sofort.' }
 ];

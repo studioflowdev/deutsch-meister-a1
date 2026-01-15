@@ -78,7 +78,11 @@ const App: React.FC = () => {
   const startExam = async (selectedMode: ExamMode) => {
     setIsPreparing(true);
     try {
-      const selectedWords = pickRandom(SPEAKING_WORD_CARDS, 6);
+      // Select a random topic for Part 2 to ensure consistent cards
+      const availableTopics = Array.from(new Set(SPEAKING_WORD_CARDS.map(c => c.topic).filter(Boolean)));
+      const selectedTopic = availableTopics[Math.floor(Math.random() * availableTopics.length)];
+      const selectedWords = SPEAKING_WORD_CARDS.filter(c => c.topic === selectedTopic);
+
       const selectedPictures = pickRandom(SPEAKING_PICTURE_CARDS, 6);
       const speakingPool = [...selectedWords, ...selectedPictures];
 
