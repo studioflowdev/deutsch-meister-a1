@@ -254,7 +254,7 @@ const App: React.FC = () => {
                       {q.context}
                     </div>
                     <div className="text-right text-sm font-bold text-slate-600 mt-2">
-                      Tel: 0{(q.id.charCodeAt(0) * 5) % 900 + 100} - {(q.id.charCodeAt(1) * 2345) % 90000 + 10000}
+                      Tel: 0{(q.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) * 7) % 900 + 100} - {(q.id.split('').reduce((acc, char) => (acc * 31 + char.charCodeAt(0)) % 90000, 0)) + 10000}
                     </div>
                   </div>
                 ) : (
