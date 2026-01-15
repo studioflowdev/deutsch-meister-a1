@@ -224,7 +224,7 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-slate-50">
       <ExamHeader currentSection={exam.section} guidanceEnabled={exam.guidanceEnabled} onToggleGuidance={() => setExam(e => ({ ...e, guidanceEnabled: !e.guidanceEnabled }))} onExit={() => setExam({ ...exam, section: ExamSection.HOME })} onNavigate={handleNavigate} timer={timer} />
       <main className="max-w-5xl mx-auto px-4 py-12 pb-32">
-        {exam.section === ExamSection.HOEREN && <ListeningPart questions={sessionContent.hoeren} answers={exam.answers} onAnswer={handleAnswer} guidanceEnabled={exam.guidanceEnabled} />}
+        {exam.section === ExamSection.HOEREN && <ListeningPart questions={sessionContent.hoeren} answers={exam.answers} onAnswer={handleAnswer} guidanceEnabled={exam.guidanceEnabled} mode={exam.mode} />}
         {exam.section === ExamSection.LESEN && (
           <div className="space-y-12">
             <div className="space-y-2">
