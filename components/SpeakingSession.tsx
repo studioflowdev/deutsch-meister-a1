@@ -169,16 +169,17 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
       2. Teil 2 (Theme Cards):
          - Wait for the student to ask a question based on their card.
          ${virtualPartnerEnabled
-          ? '- Answer simply (as Partner), e.g., "Ja, ich mache das gern." \n         - THEN immediately say "Danke. Meine Frage an dich:" and ask the student a NEW question based on the same topic.\n         - Wait for their answer.'
+          ? '- Answer simply (as Partner), e.g., "Ja, ich mache das gern." \n         - THEN say: "Jetzt ziehe ich eine Karte... Ah, [Simulate a Word]. Meine Frage an dich:" and ask a NEW question based on the topic.\n         - Wait for their answer.'
           : '- LISTEN ONLY. Do not answer the question as a partner. Do not ask a counter-question. \n         - Briefly acknowledge (e.g., "Danke", "Nächste Karte bitte") and wait for the student to flip the next card.'}
       3. Teil 3 (Request Cards):
          - Wait for the student to make a request/imperative.
          ${virtualPartnerEnabled
-          ? '- React appropriately (e.g., "Ja, natürlich", "Hier bitte"). \n         - THEN make a request to the student (e.g., "Gib mir bitte deine Handynummer").\n         - Wait for their reaction.'
+          ? '- React appropriately (e.g., "Ja, natürlich", "Hier bitte"). \n         - THEN say: "Jetzt bin ich dran... [Simulate an Image]. Gib mir bitte..." and make a request.\n         - Wait for their reaction.'
           : '- LISTEN ONLY. Acknowledge briefly (e.g. "Gut gemacht"). Do not act out the request. Do not make a counter-request.'}
 
       FEEDBACK / PRONUNCIATION:
-      - If their pronunciation is poor, add a short tip in brackets at the end of your response, e.g., (Tip: "Sprechen" is pronounced with a 'sh' sound).
+      - **CRITICAL: NEVER SPEAK ENGLISH.** All audio must be predominantly German.
+      - If their pronunciation is poor, provide the tip **IN TEXT ONLY** inside brackets ( ). Do not read the tip aloud.
       - After each interaction (Question + Response), provide a short "GRADE: x/10" in brackets based on grammar and understandability.
       
       IMPORTANT: ${virtualPartnerEnabled ? 'You are simulating a GROUP exam. You must act as the partner.' : 'You are observing the exam. Rate the student silent or minimally.'}`;
@@ -366,14 +367,7 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
                 <div key={i} className={`flex flex-col ${m.role === 'ai' ? 'items-start' : 'items-end'}`}>
                   <div className={`group relative max-w-[85%] px-5 py-3 rounded-2xl text-lg font-medium shadow-sm ${m.role === 'ai' ? 'bg-blue-900/40 text-blue-100 border border-blue-800/50' : 'bg-slate-700 text-white'}`}>
                     {m.text}
-                    {m.role === 'ai' && m.audioBuffer && (
-                      <div className="mt-3 pt-3 border-t border-blue-800/30 flex items-center gap-3">
-                        <button onClick={() => togglePlayback(i)} className="w-8 h-8 rounded-full bg-blue-600/30 hover:bg-blue-600/50 text-blue-200 flex items-center justify-center transition-colors">
-                          <i className={`fa-solid ${currentlyPlayingIndex === i ? 'fa-pause' : 'fa-play ml-0.5'}`}></i>
-                        </button>
-                        <button onClick={() => { if (playbackSourceRef.current) playbackSourceRef.current.stop(); setCurrentlyPlayingIndex(null); setTimeout(() => togglePlayback(i), 50); }} className="text-[10px] font-black uppercase tracking-widest text-blue-400 hover:text-blue-200 transition-colors">Wiederholen</button>
-                      </div>
-                    )}
+
                   </div>
                   {m.pronunciationTip && <div className="mt-2 ml-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-xl flex items-center gap-2 text-emerald-400 text-xs font-bold animate-in fade-in slide-in-from-left-2"><i className="fa-solid fa-ear-listen"></i><span>Pronunciation Hint: {m.pronunciationTip}</span></div>}
                 </div>
