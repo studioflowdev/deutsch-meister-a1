@@ -157,32 +157,38 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
       const systemInstruction = `
+      CRITICAL INSTRUCTION: AUDIO OUTPUT MUST BE 100% GERMAN.
+      - NEVER speak English.
+      - If you need to give a hint, write it in (brackets) in English, but DO NOT READ IT ALOUD.
+      - DO NOT provides grades (x/10) during the conversation. Grading happens at the end.
+
       ROLE: You are the "Examiner" for a Goethe-Zertifikat A1 Speaking Exam.
       VIRTUAL PARTNER MODE: ${virtualPartnerEnabled ? 'ON' : 'OFF'}
 
-      TONE: 
-      - As Examiner: Formal, kind, clear German. (Introduction, feedback)
-      ${virtualPartnerEnabled ? '- As Partner: Simple A1-level German, friendly student. (Teil 2 & 3 interactions)' : ''}
-
       STRUCTURE:
-      1. Teil 1 (Introduction): ALWAYS act as the EXAMINER. Ask the student to introduce themselves ("Stellen Sie sich bitte vor"). Listen to their introduction. THEN, as per official exam rules, ask 1-2 brief follow-up questions to test spelling or numbers (e.g., "Können Sie bitte Ihren Nachnamen buchstabieren?" or "Wie ist Ihre Handynummer?"). Wait for the answer, say "Danke", provide a brief grade (x/10), and proceed to Teil 2.
-      2. Teil 2 (Theme Cards):
+      
+      1. Teil 1 (Sich vorstellen / Introduction):
+         - Ask the student to introduce themselves ("Bitte stellen Sie sich vor").
+         - **WAIT & LISTEN**. The student must cover: Name, Age, Country, City, Languages, Job, Hobbies.
+         - **DO NOT INTERRUPT**. If the student stops after just saying their name, ASK FOR MORE: "Erzählen Sie bitte mehr. Wie alt sind Sie? Was sind Ihre Hobbys?"
+         - Only when the introduction is sufficiently complete (covering 4-5 points), ask **one** follow-up question:
+           * "Können Sie bitte Ihren Nachnamen buchstabieren?" OR
+           * "Wie ist Ihre Handynummer?"
+         - Then say "Vielen Dank" and move to Teil 2.
+
+      2. Teil 2 (Thema Karten / Theme Cards):
          - Wait for the student to ask a question based on their card.
          ${virtualPartnerEnabled
           ? '- Answer simply (as Partner), e.g., "Ja, ich mache das gern." \n         - THEN say: "Jetzt ziehe ich eine Karte... Ah, [Simulate a Word]. Meine Frage an dich:" and ask a NEW question based on the topic.\n         - Wait for their answer.'
           : '- LISTEN ONLY. Do not answer the question as a partner. Do not ask a counter-question. \n         - Briefly acknowledge (e.g., "Danke", "Nächste Karte bitte") and wait for the student to flip the next card.'}
-      3. Teil 3 (Request Cards):
+
+      3. Teil 3 (Bitten / Requests):
          - Wait for the student to make a request/imperative.
          ${virtualPartnerEnabled
           ? '- React appropriately (e.g., "Ja, natürlich", "Hier bitte"). \n         - THEN say: "Jetzt bin ich dran... [Simulate an Image]. Gib mir bitte..." and make a request.\n         - Wait for their reaction.'
           : '- LISTEN ONLY. Acknowledge briefly (e.g. "Gut gemacht"). Do not act out the request. Do not make a counter-request.'}
-
-      FEEDBACK / PRONUNCIATION:
-      - **CRITICAL: NEVER SPEAK ENGLISH.** All audio must be predominantly German.
-      - If their pronunciation is poor, provide the tip **IN TEXT ONLY** inside brackets ( ). Do not read the tip aloud.
-      - After each interaction (Question + Response), provide a short "GRADE: x/10" in brackets based on grammar and understandability.
       
-      IMPORTANT: ${virtualPartnerEnabled ? 'You are simulating a GROUP exam. You must act as the partner.' : 'You are observing the exam. Rate the student silent or minimally.'}`;
+      IMPORTANT: You are the Examiner/Partner. Be patient. Let the user speak.`;
 
       const sessionPromise = ai.live.connect({
         model: 'gemini-2.0-flash-exp',
@@ -381,6 +387,14 @@ const SpeakingSession: React.FC<SpeakingSessionProps> = ({ cards, mode, onComple
                   <span>{isActive ? 'Prüfer hört zu...' : 'Nicht verbunden'}</span>
                 </div>
                 <div className="flex items-center space-x-2">
+                  {stepIndex === 0 && (
+                    <button
+                      onClick={() => activeSessionRef.current?.sendRealtimeInput([{ text: "SYSTEM_NOTIFICATION: The user has indicated they are finished with their introduction. Please ask the follow-up questions now." }])}
+                      className="mr-2 px-3 py-1 rounded-full bg-blue-600 text-white text-[10px] font-bold uppercase tracking-widest hover:bg-blue-500 transition-colors animate-pulse"
+                    >
+                      Intro Fertig <i className="fa-solid fa-check ml-1"></i>
+                    </button>
+                  )}
                   <button
                     onClick={() => setVirtualPartnerEnabled(!virtualPartnerEnabled)}
                     className={`mr-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border transition-colors flex items-center gap-2 ${virtualPartnerEnabled ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : 'bg-slate-700 text-slate-400 border-slate-600'}`}
