@@ -11,7 +11,8 @@ export enum ExamSection {
 
 export enum ExamMode {
   FULL = 'FULL',
-  GUIDED = 'GUIDED'
+  GUIDED = 'GUIDED',
+  STRICT = 'STRICT'
 }
 
 export interface Question {
@@ -19,10 +20,10 @@ export interface Question {
   part: number;
   type: 'multiple-choice' | 'true-false' | 'text' | 'form';
   prompt: string;
-  context?: string; 
+  context?: string;
   options?: string[];
   correctAnswer?: string;
-  audioScript?: string; 
+  audioScript?: string;
   hint?: string;
   translation?: string;
 }
@@ -41,7 +42,7 @@ export interface CardData {
   type: 'word' | 'picture';
   content: string;
   topic?: string;
-  icon?: string; 
+  icon?: string;
   imageUrl?: string; // New: for AI generated sketches
   exampleQuestion?: string;
   exampleAnswer?: string;

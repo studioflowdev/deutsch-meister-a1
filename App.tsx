@@ -24,6 +24,16 @@ interface SessionContent {
   speakingCards: CardData[];
 }
 
+const TIME_LIMITS: Record<string, number> = {
+  [ExamSection.HOEREN]: 1200, // 20 mins
+  [ExamSection.LESEN]: 1500, // 25 mins
+  [ExamSection.SCHREIBEN]: 1200, // 20 mins
+  [ExamSection.SPRECHEN]: 900,  // 15 mins
+  [ExamSection.HOME]: 0,
+  [ExamSection.SUMMARY]: 0,
+  [ExamSection.RESULTS]: 0
+};
+
 const App: React.FC = () => {
   const [exam, setExam] = useState<ExamState>({
     section: ExamSection.HOME,
@@ -42,15 +52,30 @@ const App: React.FC = () => {
   const [isPreparing, setIsPreparing] = useState(false);
   const [gradingError, setGradingError] = useState<string | null>(null);
 
+  // Timer Logic
   useEffect(() => {
     let interval: any;
     if (exam.section !== ExamSection.HOME && exam.section !== ExamSection.RESULTS && exam.section !== ExamSection.SUMMARY) {
-      interval = setInterval(() => setTimer(prev => prev + 1), 1000);
+      interval = setInterval(() => {
+        setTimer(prev => {
+          if (exam.mode === ExamMode.STRICT) {
+            if (prev <= 1) {
+              // Time's up! Force move to next section
+              clearInterval(interval);
+              nextSection();
+              return 0;
+            }
+            return prev - 1;
+          } else {
+            return prev + 1;
+          }
+        });
+      }, 1000);
     }
     return () => clearInterval(interval);
-  }, [exam.section]);
+  }, [exam.section, exam.mode]); // Added exam.mode dependency
 
-  const startExam = async () => {
+  const startExam = async (selectedMode: ExamMode) => {
     setIsPreparing(true);
     try {
       const selectedWords = pickRandom(SPEAKING_WORD_CARDS, 6);
@@ -79,8 +104,18 @@ const App: React.FC = () => {
       };
 
       setSessionContent(generated);
-      setExam({ ...exam, section: ExamSection.HOEREN, startTime: Date.now(), answers: {} });
-      setTimer(0);
+
+      // Initialize Timer based on Mode
+      const initialTime = selectedMode === ExamMode.STRICT ? TIME_LIMITS[ExamSection.HOEREN] : 0;
+      setTimer(initialTime);
+
+      setExam({
+        ...exam,
+        section: ExamSection.HOEREN,
+        mode: selectedMode,
+        startTime: Date.now(),
+        answers: {}
+      });
     } finally {
       setIsPreparing(false);
     }
@@ -89,11 +124,19 @@ const App: React.FC = () => {
   const nextSection = () => {
     const order = [ExamSection.HOEREN, ExamSection.LESEN, ExamSection.SCHREIBEN, ExamSection.SPRECHEN, ExamSection.SUMMARY, ExamSection.RESULTS];
     const currentIndex = order.indexOf(exam.section);
-    if (currentIndex < order.length - 1) handleNavigate(order[currentIndex + 1]);
+    if (currentIndex < order.length - 1) {
+      handleNavigate(order[currentIndex + 1]);
+    }
   };
 
   const handleNavigate = (section: ExamSection) => {
     setExam(prev => ({ ...prev, section }));
+    // Reset Timer on Navigation
+    if (exam.mode === ExamMode.STRICT) {
+      setTimer(TIME_LIMITS[section] || 0);
+    } else {
+      setTimer(0);
+    }
     window.scrollTo(0, 0);
   };
 
@@ -142,10 +185,27 @@ const App: React.FC = () => {
             </div>
             <h1 className="text-6xl font-black text-slate-900 mb-6 tracking-tight">Deutsch-Meister A1</h1>
             <p className="text-slate-500 max-w-xl mb-12 text-xl font-medium leading-relaxed">Die umfassende Goethe-Zertifikat A1 Simulation.<br />Authentische visuelle Materialien, die für jede Sitzung neu generiert werden.</p>
-            <div className="w-full max-w-sm">
-              <button onClick={startExam} className="w-full py-6 bg-blue-600 hover:bg-blue-700 text-white text-2xl font-black rounded-3xl shadow-2xl shadow-blue-200 transition-all hover:-translate-y-2 active:scale-95 flex items-center justify-center space-x-4">
-                <i className="fa-solid fa-play"></i>
-                <span>Prüfung starten</span>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl">
+              {/* Standard Mode Card */}
+              <button onClick={() => startExam(ExamMode.FULL)} className="group relative bg-white hover:bg-blue-50 p-8 rounded-3xl shadow-xl transition-all border-2 border-transparent hover:border-blue-500 hover:-translate-y-2 text-left">
+                <div className="bg-blue-100 w-16 h-16 rounded-2xl flex items-center justify-center text-blue-600 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                  <i className="fa-solid fa-graduation-cap"></i>
+                </div>
+                <h3 className="text-2xl font-black text-slate-900 mb-2">Standard Modus</h3>
+                <p className="text-slate-500 font-medium leading-relaxed">Üben Sie ohne Zeitdruck. Hinweise und Übersetzungen sind verfügbar.</p>
+              </button>
+
+              {/* Strict Mode Card */}
+              <button onClick={() => startExam(ExamMode.STRICT)} className="group relative bg-slate-900 hover:bg-slate-800 p-8 rounded-3xl shadow-xl transition-all border-2 border-transparent hover:border-red-500 hover:-translate-y-2 text-left">
+                <div className="bg-slate-800 w-16 h-16 rounded-2xl flex items-center justify-center text-red-500 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                  <i className="fa-solid fa-stopwatch"></i>
+                </div>
+                <h3 className="text-2xl font-black text-white mb-2">Prüfungs Modus</h3>
+                <p className="text-slate-400 font-medium leading-relaxed">Realistische Simulation. Strenge Zeitlimits. Keine Hilfen.</p>
+                <div className="absolute top-6 right-6 px-3 py-1 bg-red-600 text-white text-xs font-black rounded-full uppercase tracking-widest">
+                  Hardcore
+                </div>
               </button>
             </div>
           </>
@@ -194,7 +254,7 @@ const App: React.FC = () => {
                       {q.context}
                     </div>
                     <div className="text-right text-sm font-bold text-slate-600 mt-2">
-                      Tel: 0{Math.floor(Math.random() * 900) + 100} - {Math.floor(Math.random() * 90000) + 10000}
+                      Tel: 0{(q.id.charCodeAt(0) * 5) % 900 + 100} - {(q.id.charCodeAt(1) * 2345) % 90000 + 10000}
                     </div>
                   </div>
                 ) : (
